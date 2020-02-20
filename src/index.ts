@@ -1,3 +1,38 @@
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+type Record<K extends keyof any, T> = {
+  [P in K]: T;
+};
+
+export const uniqueOccurrences = function(arr: Array<number>): boolean {
+  const similarDictionary: Record<string, Array<number>> = {};
+  let isDuplicate = true;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (!similarDictionary[arr[i]]) {
+      similarDictionary[arr[i]] = [arr[i]];
+    } else {
+      similarDictionary[arr[i]].push(arr[i]);
+    }
+  }
+
+  const arrOfValues = Object.values(similarDictionary).map(item => item.length);
+
+  while (arrOfValues.length > 0) {
+    let cuttedFirstValue: number | undefined = arrOfValues.shift();
+
+    if (cuttedFirstValue) {
+      if (arrOfValues.indexOf(cuttedFirstValue) !== -1) {
+        isDuplicate = false;
+      }
+    }
+  }
+
+  return isDuplicate;
+};
+
 export const pairSum = (a: number, b: number) => {
   if ('development' === process.env.NODE_ENV) {
     console.log('boop');
