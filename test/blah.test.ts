@@ -3,10 +3,11 @@ import {
   recursionSum,
   uniqueOccurrences,
   pairSumSequence,
+  diStringMatch,
 } from '../src';
 
 describe('blah', () => {
-  it('works', () => {
+  it('Basic Sum', () => {
     expect(pairSum(1, 1)).toEqual(2);
   });
 
@@ -58,5 +59,13 @@ describe('blah', () => {
 
   it('Uniq Occurence With Negative', () => {
     expect(uniqueOccurrences([0, 0, -2, -1, 4, 8, -3, 9, 6])).toEqual(false);
+  });
+
+  it('DI String Match mixed', () => {
+    expect(diStringMatch('IDID')).toEqual([0, 4, 1, 3, 2]);
+  });
+
+  it('DI String Match only with Increasing', () => {
+    expect(diStringMatch('III')).toEqual([0, 1, 2, 3]);
   });
 });

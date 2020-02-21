@@ -1,4 +1,28 @@
 /**
+ * @param {string} S
+ * @return {number[]}
+ */
+export const diStringMatch = function(S: string) {
+  const permutationResult = [];
+  const N = S.length;
+  const A = Array.from({ length: N + 1 }, (_, k) => k);
+  const StoArry: Array<string> = S.split('');
+
+  for (let i = 0; i < StoArry.length; i += 1) {
+    if (StoArry[i] === 'I') {
+      permutationResult.push(A.shift());
+    }
+    if (StoArry[i] === 'D') {
+      permutationResult.push(A.pop());
+    }
+  }
+
+  permutationResult.push(A.shift());
+
+  return permutationResult;
+};
+
+/**
  * @param {number[]} arr
  * @return {boolean}
  */
