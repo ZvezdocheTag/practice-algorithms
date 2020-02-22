@@ -1,3 +1,50 @@
+// import { Interface } from 'readline';
+// import { Tree } from 'istanbul-lib-report';
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+
+export interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+export const searchBST = (
+  root: TreeNode,
+  val: number
+): TreeNode | null | undefined => {
+  const current = [root];
+  let matchedVal = null;
+  while (current.length !== 0) {
+    let first = current.pop();
+    let firstLeft = first!.left;
+    let firstRight = first!.right;
+
+    if (first!.val === val) {
+      matchedVal = first;
+    }
+    if (firstLeft) {
+      current.push(firstLeft);
+    }
+    if (firstRight) {
+      current.push(firstRight);
+    }
+  }
+
+  return matchedVal;
+};
+
+export const arrayToBinaryTree = () => {};
 /**
  * @param {string} S
  * @return {number[]}

@@ -4,6 +4,8 @@ import {
   uniqueOccurrences,
   pairSumSequence,
   diStringMatch,
+  searchBST,
+  TreeNode,
 } from '../src';
 
 describe('blah', () => {
@@ -67,5 +69,27 @@ describe('blah', () => {
 
   it('DI String Match only with Increasing', () => {
     expect(diStringMatch('III')).toEqual([0, 1, 2, 3]);
+  });
+
+  const tree: TreeNode = {
+    val: 4,
+    right: { val: 7, right: null, left: null },
+    left: {
+      val: 2,
+      right: { val: 3, right: null, left: null },
+      left: { val: 1, right: null, left: null },
+    },
+  };
+
+  it('Search and found second level value inside tree with Breadth First Search', () => {
+    expect(searchBST(tree, 2)).toEqual({
+      val: 2,
+      right: { val: 3, right: null, left: null },
+      left: { val: 1, right: null, left: null },
+    });
+  });
+
+  it('Search and Not Found value via BST', () => {
+    expect(searchBST(tree, 9)).toEqual(null);
   });
 });
