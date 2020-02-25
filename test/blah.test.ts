@@ -6,9 +6,23 @@ import {
   diStringMatch,
   searchBST,
   TreeNode,
+  arrayPairSum,
+  numberOfSteps,
 } from '../src';
 
 describe('blah', () => {
+  it('Array Partition I with positive values', () => {
+    expect(numberOfSteps(14)).toEqual(6);
+  });
+
+  it('Array Partition I with positive values', () => {
+    expect(arrayPairSum([1, 4, 3, 2])).toEqual(4);
+  });
+
+  it('Array Partition I with negative values', () => {
+    expect(arrayPairSum([-2290, -7908, 2833, 6214])).toEqual(-5075);
+  });
+
   it('Basic Sum', () => {
     expect(pairSum(1, 1)).toEqual(2);
   });

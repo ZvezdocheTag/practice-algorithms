@@ -1,5 +1,35 @@
-// import { Interface } from 'readline';
-// import { Tree } from 'istanbul-lib-report';
+/**
+ * @param {number} num
+ * @return {number}
+ */
+export const numberOfSteps = (num: number) => {
+  let stackOperation = 0;
+  while (num > 0) {
+    if (num % 2 === 0) {
+      num = num / 2;
+      stackOperation += 1;
+    } else {
+      num = num - 1;
+      stackOperation += 1;
+    }
+  }
+
+  return stackOperation;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+export const arrayPairSum = (nums: number[]) => {
+  const sortedNums = nums.sort((a, b) => a - b);
+  let sum = 0;
+  for (let i = 0; i <= sortedNums.length - 1; i += 2) {
+    sum += sortedNums[i];
+  }
+
+  return sum;
+};
 
 /**
  * Definition for a binary tree node.

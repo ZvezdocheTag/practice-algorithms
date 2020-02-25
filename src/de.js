@@ -1,3 +1,5 @@
+console.log([-2290, -7908, 2833, 6214].sort((a, b) => a - b))
+
 // /*Graphs Breadth-first-search */
 
 // function bfs(graph, root) {
