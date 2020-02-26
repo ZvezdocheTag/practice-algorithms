@@ -7,10 +7,15 @@ import {
   searchBST,
   TreeNode,
   arrayPairSum,
+  decompressRLElist,
   numberOfSteps,
 } from '../src';
 
 describe('blah', () => {
+  it('Decompress Run-Length Encoded List: ', () => {
+    expect(decompressRLElist([1, 2, 3, 4])).toEqual([2, 4, 4, 4]);
+  });
+
   it('Array Partition I with positive values', () => {
     expect(numberOfSteps(14)).toEqual(6);
   });

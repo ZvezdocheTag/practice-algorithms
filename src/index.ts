@@ -1,4 +1,19 @@
 /**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+export const decompressRLElist = (nums: number[]): number[] => {
+  let decompressed: number[] = [];
+  for (let i = 0; i < nums.length; i += 2) {
+    let [a, b] = [nums[i], nums[i + 1]];
+    let generatedArray = Array.from({ length: a }, () => b);
+    decompressed = decompressed.concat(generatedArray);
+  }
+
+  return decompressed;
+};
+
+/**
  * @param {number} num
  * @return {number}
  */
