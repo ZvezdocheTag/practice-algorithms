@@ -1,4 +1,57 @@
 /**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+export const relativeSortArray = function(
+  arr1: Array<number | null>,
+  arr2: number[]
+) {
+  let sorted = [];
+
+  while (arr2.length > 0) {
+    let val = arr2.shift();
+    for (let i = 0; i < arr1.length; i += 1) {
+      if (arr1[i] === val) {
+        sorted.push(arr1[i]);
+        arr1[i] = null;
+        // arr1.splice(arr1[i], 1)
+      }
+    }
+  }
+
+  function isNumber(x: any): x is number {
+    return typeof x === 'number';
+  }
+  function sortCarefuly<MyType>(a: MyType | null, b: MyType | null) {
+    if (isNumber(a) && isNumber(b)) {
+      return a - b;
+    }
+    throw new Error(`Expected string or number, got '${a}'.`);
+  }
+
+  let prep = arr1.filter(item => item !== null).sort(sortCarefuly);
+  return sorted.concat(prep);
+};
+/**
+ * @param {number} N
+ * @return {boolean}
+ */
+export const divisorGame = (N: number) => {
+  let min = 0;
+  let x = N - 1;
+  let isAliceWin = false;
+
+  // && N % x == 0 - one more condition, that could reduce time of algo
+  while (min < x && x < N) {
+    isAliceWin = !isAliceWin;
+    x--;
+  }
+
+  return isAliceWin;
+};
+
+/**
  * @param {number[]} nums
  * @return {number[]}
  */

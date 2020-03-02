@@ -9,9 +9,21 @@ import {
   arrayPairSum,
   decompressRLElist,
   numberOfSteps,
+  divisorGame,
+  relativeSortArray,
 } from '../src';
 
 describe('blah', () => {
+  it('Relative Sort Array ', () => {
+    let arr1 = [2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19];
+    let arr2 = [2, 1, 4, 3, 9, 6];
+    let expected = [2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19];
+    expect(relativeSortArray(arr1, arr2)).toEqual(expected);
+  });
+  it('Division Game ', () => {
+    expect(divisorGame(4)).toEqual(true);
+  });
+
   it('Decompress Run-Length Encoded List: ', () => {
     expect(decompressRLElist([1, 2, 3, 4])).toEqual([2, 4, 4, 4]);
   });
