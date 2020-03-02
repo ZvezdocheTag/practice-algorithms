@@ -3,6 +3,7 @@
  * @param {number[]} arr2
  * @return {number[]}
  */
+// Not Optimal Way, write better one
 export const relativeSortArray = function(
   arr1: Array<number | null>,
   arr2: number[]
@@ -15,7 +16,6 @@ export const relativeSortArray = function(
       if (arr1[i] === val) {
         sorted.push(arr1[i]);
         arr1[i] = null;
-        // arr1.splice(arr1[i], 1)
       }
     }
   }
