@@ -11,15 +11,35 @@ import {
   numberOfSteps,
   divisorGame,
   relativeSortArray,
+  maxDepth,
 } from '../src';
 
 describe('blah', () => {
+  it('Tree max depth ', () => {
+    let Tree = {
+      val: 1,
+      children: [
+        {
+          val: 3,
+          children: [
+            { val: 5, children: [] },
+            { val: 6, children: [{ val: 43, children: [] }] },
+          ],
+        },
+        { val: 2, children: [] },
+        { val: 4, children: [] },
+      ],
+    };
+    expect(maxDepth(Tree)).toEqual(4);
+  });
+
   it('Relative Sort Array ', () => {
     let arr1 = [2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19];
     let arr2 = [2, 1, 4, 3, 9, 6];
     let expected = [2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19];
     expect(relativeSortArray(arr1, arr2)).toEqual(expected);
   });
+
   it('Division Game ', () => {
     expect(divisorGame(4)).toEqual(true);
   });

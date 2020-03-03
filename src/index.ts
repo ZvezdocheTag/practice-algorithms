@@ -1,9 +1,64 @@
 /**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {number}
+ */
+interface Node {
+  val: number;
+  children: Node[];
+  level?: number | undefined;
+}
+
+export const maxDepth = function(root: Node) {
+  if (!root) {
+    return 0;
+  }
+
+  // console.log(root);
+
+  let current = {
+    ...root,
+    level: 1,
+  };
+  let maxLevel: number | undefined = 1;
+
+  function recursion(currentNode: Node, parentNode: Node | null) {
+    // If current node exist, and has prop: level then we use this  prop
+    // If not, we are using -1 as a value, that in any case lower than level of root node
+    // and we do not update our maxLevel value
+    let isLevelExist =
+      currentNode && currentNode.level ? currentNode.level : -1;
+
+    if (parentNode && parentNode.level) {
+      currentNode.level = parentNode.level + 1;
+      isLevelExist = currentNode.level;
+    }
+
+    if (maxLevel && isLevelExist > maxLevel) {
+      maxLevel = currentNode.level;
+    }
+    for (let i = 0; i < currentNode.children.length; i += 1) {
+      recursion(currentNode.children[i], currentNode);
+    }
+  }
+
+  recursion(current, null);
+
+  return maxLevel;
+};
+/**
  * @param {number[]} arr1
  * @param {number[]} arr2
  * @return {number[]}
  */
 // Not Optimal Way, write better one
+// Sort and Filtering, here are excessive
 export const relativeSortArray = function(
   arr1: Array<number | null>,
   arr2: number[]
@@ -27,7 +82,7 @@ export const relativeSortArray = function(
     if (isNumber(a) && isNumber(b)) {
       return a - b;
     }
-    throw new Error(`Expected string or number, got '${a}'.`);
+    throw new Error(`Expected number, got '${a}'.`);
   }
 
   let prep = arr1.filter(item => item !== null).sort(sortCarefuly);
