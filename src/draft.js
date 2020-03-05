@@ -1,43 +1,73 @@
-var maxDepthDF = function(root) {
-  if (!root) {
-    return 0;
-  }
+/**
+ * @param {string[]} A
+ * @return {number}
+ */
+var minDeletionSize = function(A) {
+  let M = [];
 
-  let current = {
-    ...root,
-    level: 1,
-  };
-  let maxLevel = 1;
+  let asc = 0;
 
-  function recursion(currentNode, parentNode, depth) {
-    if (parentNode) {
-      currentNode.level = parentNode.level + 1;
-    }
-    if (currentNode.level > maxLevel) {
-      maxLevel = currentNode.level;
-    }
-    for (let i = 0; i < currentNode.children.length; i += 1) {
-      recursion(currentNode.children[i], currentNode);
+  for (let i = 0; i < A.length; i += 1) {
+    let item = A[i].trim().split('');
+    if (M.length === 0) {
+      M = item.map(D => [D]);
+    } else {
+      item.forEach((D, idx) => {
+        M[idx].push(D);
+      });
     }
   }
 
-  recursion(current, null, 0);
+  M.forEach(item => {
+    item.every((ite, idx, arr) => {
+      var prev = arr[idx - 1];
+      if (prev) {
+        if (prev > ite) {
+          asc++;
+          return false;
+        }
+      }
+      return true;
+    });
+  });
 
-  return maxLevel;
+  console.log(asc);
+  return asc;
 };
 
-let b = maxDepthDF({
-  val: 1,
-  children: [
-    {
-      val: 3,
-      children: [
-        { val: 5, children: [] },
-        { val: 6, children: [{ val: 43, children: [] }] },
-      ],
-    },
-    { val: 2, children: [] },
-    { val: 4, children: [] },
-  ],
-});
-// console.log(b);
+minDeletionSize(['egguij', 'gjsnnk', 'lstgon', 'ztzrqv']);
+
+// minDeletionSize(['cba', 'daf', 'ghi']);
+
+// ['e', 'g', 'l', 'z'].every((ite, idx, arr) => {
+//   var prev = arr[idx - 1];
+//   if (prev) {
+//     console.log(prev > ite);
+//   }
+//   console.log(ite, idx, prev);
+//   return true;
+// });
+
+// let counter = 0;
+
+// [
+//   ['e', 'g', 'l', 'z'],
+//   ['g', 'j', 's', 't'],
+//   ['g', 's', 't', 'z'],
+//   ['u', 'n', 'g', 'r'],
+//   ['i', 'n', 'o', 'q'],
+//   ['j', 'k', 'n', 'v'],
+// ].forEach(item => {
+//   item.every((ite, idx, arr) => {
+//     var prev = arr[idx - 1];
+//     if (prev) {
+//       if (prev > ite) {
+//         counter++;
+//         return false;
+//       }
+//     }
+//     return true;
+//   });
+// });
+
+// console.log('COUTN', counter);

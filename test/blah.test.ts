@@ -12,9 +12,21 @@ import {
   divisorGame,
   relativeSortArray,
   maxDepth,
+  heightChecker,
+  minDeletionSize,
 } from '../src';
 
 describe('blah', () => {
+  it('Delete Columns to Make Sorted', () => {
+    expect(minDeletionSize(['egguij', 'gjsnnk', 'lstgon', 'ztzrqv'])).toEqual(
+      1
+    );
+  });
+
+  it('Height Checker', () => {
+    expect(heightChecker([1, 1, 4, 2, 1, 3])).toEqual(3);
+  });
+
   it('Tree max depth ', () => {
     let Tree = {
       val: 1,

@@ -1,4 +1,57 @@
 /**
+ * @param {string[]} A
+ * @return {number}
+ */
+
+export const minDeletionSize = function(A: string[]) {
+  let M: Array<Array<string>> = [];
+
+  let asc = 0;
+
+  for (let i = 0; i < A.length; i += 1) {
+    let item = A[i].trim().split('');
+    if (M.length === 0) {
+      M = item.map(D => [D]);
+    } else {
+      item.forEach((D, idx) => {
+        M[idx].push(D);
+      });
+    }
+  }
+
+  // TODO: not optimal decision rewrite this logic to upper forEach
+  M.forEach(item => {
+    item.every((ite, idx, arr) => {
+      var prev = arr[idx - 1];
+      if (prev) {
+        if (prev > ite) {
+          asc++;
+          return false;
+        }
+      }
+      return true;
+    });
+  });
+
+  return asc;
+};
+
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+export const heightChecker = function(heights: number[]) {
+  let sorted = [...heights].sort((a, b) => a - b);
+  // console.log(sorted, heights);
+  let diff = 0;
+  for (let i = 0; i < heights.length; i += 1) {
+    if (sorted[i] !== heights[i]) {
+      diff += 1;
+    }
+  }
+  return diff;
+};
+/**
  * // Definition for a Node.
  * function Node(val,children) {
  *    this.val = val;
