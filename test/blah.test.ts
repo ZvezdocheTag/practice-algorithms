@@ -14,9 +14,19 @@ import {
   maxDepth,
   heightChecker,
   minDeletionSize,
+  balancedStringSplit,
 } from '../src';
 
 describe('blah', () => {
+  // balancedStringSplit
+  it('Split a String in Balanced Strings: o ne pair', () => {
+    expect(balancedStringSplit('LLLLRRRR')).toEqual(1);
+  });
+
+  it('Split a String in Balanced Strings', () => {
+    expect(balancedStringSplit('RLRRLLRLRL')).toEqual(4);
+  });
+
   it('Delete Columns to Make Sorted', () => {
     expect(minDeletionSize(['egguij', 'gjsnnk', 'lstgon', 'ztzrqv'])).toEqual(
       1

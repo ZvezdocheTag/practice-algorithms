@@ -31,7 +31,6 @@ var minDeletionSize = function(A) {
     });
   });
 
-  console.log(asc);
   return asc;
 };
 

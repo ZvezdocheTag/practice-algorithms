@@ -1,4 +1,24 @@
 /**
+ * @param {string} s
+ * @return {number}
+ */
+export const balancedStringSplit = function(s: string) {
+  let count = 0;
+  let balance = 0;
+
+  for (let i = 0, b = s.split(''); i < b.length; i += 1) {
+    if (b[i] === 'L') {
+      balance -= 1;
+    } else {
+      balance += 1;
+    }
+    if (balance === 0) {
+      count += 1;
+    }
+  }
+  return count;
+};
+/**
  * @param {string[]} A
  * @return {number}
  */
