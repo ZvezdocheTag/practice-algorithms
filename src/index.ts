@@ -1,3 +1,48 @@
+import { getRandomArbitrary } from '../utils/randomRangeGenerator';
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+export const sumZero = function(n: number) {
+  let total = 0;
+
+  let gen = Array.from({ length: n }, (_, idx) => {
+    if (idx === n - 1) {
+      return -total;
+    }
+    let firstRandom = getRandomArbitrary(-10, 10);
+    let toFloor = Math.floor(firstRandom);
+    total += toFloor;
+
+    return toFloor;
+  });
+
+  return gen;
+};
+
+/**
+ * @param {string} moves
+ * @return {boolean}
+ */
+export const judgeCircle = function(moves: string) {
+  let x = 0;
+  let y = 0;
+
+  for (let i = 0, movesToArr = moves.split(''); i < movesToArr.length; i += 1) {
+    if (movesToArr[i] === 'L') {
+      x -= 1;
+    } else if (movesToArr[i] === 'R') {
+      x += 1;
+    } else if (movesToArr[i] === 'U') {
+      y += 1;
+    } else if (movesToArr[i] === 'D') {
+      y -= 1;
+    }
+  }
+
+  return x === 0 && y === 0;
+};
+
 /**
  * @param {string} s
  * @return {number}

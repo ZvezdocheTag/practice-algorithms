@@ -15,10 +15,27 @@ import {
   heightChecker,
   minDeletionSize,
   balancedStringSplit,
+  judgeCircle,
+  sumZero,
 } from '../src';
 
 describe('blah', () => {
-  // balancedStringSplit
+  it(' Find N Unique Integers Sum up to Zero', () => {
+    const input = 7;
+    const generateArray = sumZero(input);
+
+    expect(generateArray.length).toEqual(input);
+    expect(generateArray.reduce((curr, next) => curr + next, 0)).toEqual(0);
+  });
+
+  it('Robot Return to Origin -> Win', () => {
+    expect(judgeCircle('UD')).toEqual(true);
+  });
+
+  it('Robot Return to Origin -> Lose', () => {
+    expect(judgeCircle('LL')).toEqual(false);
+  });
+
   it('Split a String in Balanced Strings: o ne pair', () => {
     expect(balancedStringSplit('LLLLRRRR')).toEqual(1);
   });
