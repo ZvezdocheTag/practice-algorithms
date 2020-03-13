@@ -1,33 +1,28 @@
 /**
- * @param {number} n
+ * @param {number} left
+ * @param {number} right
  * @return {number[]}
  */
-var sumZero = function (n) {
-  let total = 0
+var selfDividingNumbers = function (left, right) {}
 
-  let gen = Array.from({ length: n }, (_, idx) => {
-    if (idx === n - 1) {
-      console.log(total)
-      return -total
+function checkDivisibility (n, digit) {
+  return digit === 0 && n % digit > 0
+}
+
+function allDigitsDivide (n) {
+  let temp = n
+  while (temp > 0) {
+    let digit = temp % 10
+    temp = temp / 10
+    if (digit === 0 || n % digit > 0) {
+      return false
     }
-    let firstRandom = getRandomArbitrary(-10, 10)
-    let toFloor = Math.floor(firstRandom)
-    total += toFloor
+  }
 
-    return toFloor
-  })
-
-  console.log(
-    gen.reduce((curr, next) => {
-      return curr + next
-    }, 0),
-    'NAY'
-  )
-  return gen
+  return true
 }
 
-console.log(sumZero(5))
+console.log(allDigitsDivide(1))
+// def checkDivisibility(n, digit) :
 
-function getRandomArbitrary (min, max) {
-  return Math.random() * (max - min) + min
-}
+//     return (digit != 0 and n % digit == 0)

@@ -1,4 +1,58 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+
+export const countNegatives = function(grid: number[][]) {
+  return grid
+    .reduce((d, c) => [...d, ...c], [])
+    .filter((item: number[] | number) => item < 0).length;
+};
+
+/**
+ * @param {number} n
+ * @return {string}
+ */
+export const generateTheString = function(n: number) {
+  let res = '';
+  const INITIAL_CHAR_CODE = 97;
+  let b = 0;
+
+  for (let i = n; i !== 0; i -= 1) {
+    if (res.length === n) {
+      break;
+    }
+    if (i % 2 !== 0) {
+      res += String.fromCharCode(INITIAL_CHAR_CODE + b).repeat(i);
+    } else {
+      res += String.fromCharCode(INITIAL_CHAR_CODE + b);
+    }
+
+    b += 1;
+  }
+
+  return res;
+};
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+export const sortArrayByParity = function(A: number[]) {
+  const s = [];
+
+  for (let i = 0; i < A.length; i += 1) {
+    if (A[i] % 2 === 0) {
+      s.unshift(A[i]);
+    } else {
+      s.push(A[i]);
+    }
+  }
+  return s;
+};
+
 /**
  * @param {number} n
  * @return {number[]}
@@ -137,8 +191,6 @@ export const maxDepth = function(root: Node) {
   if (!root) {
     return 0;
   }
-
-  // console.log(root);
 
   let current = {
     ...root,

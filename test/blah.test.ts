@@ -17,9 +17,36 @@ import {
   balancedStringSplit,
   judgeCircle,
   sumZero,
+  sortArrayByParity,
+  generateTheString,
+  countNegatives,
 } from '../src';
 
 describe('blah', () => {
+  it('Count Negative Numbers in a Sorted Matrix', () => {
+    expect(
+      countNegatives([
+        [4, 3, 2, -1],
+        [3, 2, 1, -1],
+        [1, 1, -1, -2],
+        [-1, -1, -2, -3],
+      ])
+    ).toEqual(8);
+  });
+
+  it('Generate a String With Characters That Have Odd Counts', () => {
+    const input = 4;
+    const generateString = generateTheString(input);
+    // const sameCharachters =
+    expect(typeof generateString).toBe('string');
+    expect(generateString).toHaveLength(input);
+    // expect(generateTheString(4)).toEqual([4, 2, 3, 1]);
+  });
+
+  it('Sort Array By Parity', () => {
+    expect(sortArrayByParity([3, 1, 2, 4])).toEqual([4, 2, 3, 1]);
+  });
+
   it(' Find N Unique Integers Sum up to Zero', () => {
     const input = 7;
     const generateArray = sumZero(input);
