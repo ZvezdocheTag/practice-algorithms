@@ -20,9 +20,19 @@ import {
   sortArrayByParity,
   generateTheString,
   countNegatives,
+  isPalindrome,
 } from '../src';
 
+// isPalindrome
 describe('blah', () => {
+  it('Valid Palindrome positive', () => {
+    expect(isPalindrome('A man, a plan, a canal: Panama')).toEqual(true);
+  });
+
+  it('Valid Palindrome negative', () => {
+    expect(isPalindrome('race a car')).toEqual(false);
+  });
+
   it('Count Negative Numbers in a Sorted Matrix', () => {
     expect(
       countNegatives([

@@ -1,6 +1,25 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 
 /**
+ * @param {string} s
+ * @return {boolean}
+ */
+export const isPalindrome = function(s: string) {
+  let removePunctuationMark = s.replace(
+    /[!"\#$%&'`()*+,\-./ :;<=>?@\[\\\]^_‘{|}~]/g,
+    ''
+  );
+  let stringToArr = removePunctuationMark.split('');
+  let dup = [...stringToArr];
+  let stringToArrRv = dup.reverse();
+
+  let processedIntialStr = stringToArr.join('').toLowerCase();
+  let reversedString = stringToArrRv.join('').toLowerCase();
+
+  return processedIntialStr === reversedString;
+};
+
+/**
  * @param {number[][]} grid
  * @return {number}
  */

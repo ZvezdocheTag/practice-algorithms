@@ -1,28 +1,23 @@
 /**
- * @param {number} left
- * @param {number} right
- * @return {number[]}
+ * @param {string} s
+ * @return {boolean}
  */
-var selfDividingNumbers = function (left, right) {}
+var isPalindrome = function(s) {
+  let removePunctuationMark = s.replace(
+    /[!"\#$%&'`()*+,\-./ :;<=>?@\[\\\]^_‘{|}~]/g,
+    ''
+  );
+  let stringToArr = removePunctuationMark.split('');
+  let dup = [...stringToArr];
+  console.log(stringToArr);
+  let stringToArrRv = dup.reverse();
+  console.log(stringToArr);
+  let processedIntialStr = stringToArr.join('').toLowerCase();
+  let reversedString = stringToArrRv.join('').toLowerCase();
 
-function checkDivisibility (n, digit) {
-  return digit === 0 && n % digit > 0
-}
+  return processedIntialStr === reversedString;
+};
 
-function allDigitsDivide (n) {
-  let temp = n
-  while (temp > 0) {
-    let digit = temp % 10
-    temp = temp / 10
-    if (digit === 0 || n % digit > 0) {
-      return false
-    }
-  }
-
-  return true
-}
-
-console.log(allDigitsDivide(1))
-// def checkDivisibility(n, digit) :
-
-//     return (digit != 0 and n % digit == 0)
+// console.log(isPalindrome('A man, a plan, a canal: Panama'));
+// console.log(isPalindrome('`l;`` 1o1 ??;l`'));
+console.log(isPalindrome('race a car'));
