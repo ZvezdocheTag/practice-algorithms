@@ -1,23 +1,34 @@
 /**
  * @param {string} s
- * @return {boolean}
+ * @param {string} t
+ * @return {number}
  */
-var isPalindrome = function(s) {
-  let removePunctuationMark = s.replace(
-    /[!"\#$%&'`()*+,\-./ :;<=>?@\[\\\]^_‘{|}~]/g,
-    ''
-  );
-  let stringToArr = removePunctuationMark.split('');
-  let dup = [...stringToArr];
-  console.log(stringToArr);
-  let stringToArrRv = dup.reverse();
-  console.log(stringToArr);
-  let processedIntialStr = stringToArr.join('').toLowerCase();
-  let reversedString = stringToArrRv.join('').toLowerCase();
+var minSteps = function(s, t) {
+  let similarPosition = {};
+  let operation = 0;
 
-  return processedIntialStr === reversedString;
+  for (let i = 0; i < s.length; i += 1) {
+    if (!similarPosition[s.charAt(i)]) {
+      similarPosition[s.charAt(i)] = 1;
+    } else {
+      similarPosition[s.charAt(i)] += 1;
+    }
+  }
+
+  for (let b = 0; b < t.length; b += 1) {
+    if (!similarPosition[t.charAt(b)]) {
+      operation += 1;
+    } else {
+      similarPosition[t.charAt(b)] -= 1;
+    }
+  }
+
+  return operation;
 };
 
-// console.log(isPalindrome('A man, a plan, a canal: Panama'));
-// console.log(isPalindrome('`l;`` 1o1 ??;l`'));
-console.log(isPalindrome('race a car'));
+// let s = 'bab',
+//   t = 'aba';
+let s = 'leetcode',
+  t = 'practice';
+
+minSteps(s, t);

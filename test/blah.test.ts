@@ -21,10 +21,29 @@ import {
   generateTheString,
   countNegatives,
   isPalindrome,
+  minSteps,
 } from '../src';
 
 // isPalindrome
 describe('blah', () => {
+  it('Minimum Number of Steps to Make Two Strings Anagram - short  word', () => {
+    let s = 'bab',
+      t = 'aba';
+    expect(minSteps(s, t)).toEqual(1);
+  });
+
+  it('Minimum Number of Steps to Make Two Strings Anagram -  long word', () => {
+    let s = 'leetcode',
+      t = 'practice';
+    expect(minSteps(s, t)).toEqual(5);
+  });
+
+  it('Minimum Number of Steps to Make Two Strings Anagram - similar', () => {
+    let s = 'xxyyzz',
+      t = 'xxyyzz';
+    expect(minSteps(s, t)).toEqual(0);
+  });
+
   it('Valid Palindrome positive', () => {
     expect(isPalindrome('A man, a plan, a canal: Panama')).toEqual(true);
   });

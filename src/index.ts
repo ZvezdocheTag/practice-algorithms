@@ -1,5 +1,50 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 
+interface minStepsSimilarObj {
+  [key: string]: number;
+}
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {number}
+ */
+export const minSteps = function(s: string, t: string) {
+  let similarPosition: minStepsSimilarObj = {};
+  let operation = 0;
+
+  for (let i = 0; i < s.length; i += 1) {
+    if (!similarPosition[s.charAt(i)]) {
+      similarPosition[s.charAt(i)] = 1;
+    } else {
+      similarPosition[s.charAt(i)] += 1;
+    }
+  }
+
+  for (let b = 0; b < t.length; b += 1) {
+    if (!similarPosition[t.charAt(b)]) {
+      operation += 1;
+    } else {
+      similarPosition[t.charAt(b)] -= 1;
+    }
+  }
+
+  return operation;
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+export const rotate = function(nums: Array<number | undefined>, k: number) {
+  while (k !== 0) {
+    const temp = nums.pop();
+    nums.unshift(temp);
+    k -= 1;
+  }
+};
+
 /**
  * @param {string} s
  * @return {boolean}
