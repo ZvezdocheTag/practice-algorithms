@@ -22,10 +22,19 @@ import {
   countNegatives,
   isPalindrome,
   minSteps,
+  smallerNumbersThanCurrent,
 } from '../src';
 
 // isPalindrome
 describe('blah', () => {
+  it('How Many Numbers Are Smaller Than the Current Number', () => {
+    expect(smallerNumbersThanCurrent([8, 1, 2, 2, 3])).toEqual([4, 0, 1, 1, 3]);
+  });
+
+  it('How Many Numbers Are Smaller Than the Current Number - No smaller', () => {
+    expect(smallerNumbersThanCurrent([7, 7, 7, 7])).toEqual([0, 0, 0, 0]);
+  });
+
   it('Minimum Number of Steps to Make Two Strings Anagram - short  word', () => {
     let s = 'bab',
       t = 'aba';

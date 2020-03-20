@@ -1,5 +1,18 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+export const smallerNumbersThanCurrent = function(nums: number[]) {
+  const res = [];
+  for (let i = 0; i < nums.length; i += 1) {
+    const filterSmaller = nums.filter(item => item < nums[i]).length;
+    res.push(filterSmaller);
+  }
+  return res;
+};
+
 interface minStepsSimilarObj {
   [key: string]: number;
 }
