@@ -1,5 +1,99 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 
+interface minStepsSimilarObj {
+  [key: string]: number;
+}
+
+interface dynamicKeyWithArray {
+  [key: string]: number[];
+}
+
+interface Node {
+  val: number;
+  children: Node[];
+  level?: number | undefined;
+}
+export interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+  level?: number | undefined;
+}
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+export const deepestLeavesSum = function(root: TreeNode) {
+  const temp = {
+    ...root,
+    level: 0,
+  };
+
+  const levelsL: dynamicKeyWithArray = {};
+  const levelsR: dynamicKeyWithArray = {};
+
+  let deepest = 0;
+
+  innerRecursion(temp, null, 0);
+
+  const L = sumDeepestNodes(levelsL, deepest);
+  const R = sumDeepestNodes(levelsR, deepest);
+
+  function sumDeepestNodes(nodes: dynamicKeyWithArray, deep: number) {
+    return nodes[deep] ? nodes[deep].reduce((a, b) => a + b, 0) : 0;
+  }
+
+  function innerRecursion(
+    leave: TreeNode,
+    branch: string | null,
+    level: number
+  ) {
+    if (!leave) {
+      return null;
+    }
+
+    leave.level = level;
+
+    if (level > deepest) {
+      deepest = level;
+    }
+
+    if (branch === 'left') {
+      if (!levelsL[leave.level]) {
+        levelsL[leave.level] = [leave.val];
+      } else {
+        levelsL[leave.level].push(leave.val);
+      }
+    }
+    if (branch === 'right') {
+      if (!levelsR[leave.level]) {
+        levelsR[leave.level] = [leave.val];
+      } else {
+        levelsR[leave.level].push(leave.val);
+      }
+    }
+
+    if (leave.left) {
+      innerRecursion(leave.left, 'left', leave.level + 1);
+    }
+
+    if (leave.right) {
+      innerRecursion(leave.right, 'right', leave.level + 1);
+    }
+
+    return false;
+  }
+
+  return R + L;
+};
+
 /**
  * @param {number[]} nums
  * @return {number[]}
@@ -12,10 +106,6 @@ export const smallerNumbersThanCurrent = function(nums: number[]) {
   }
   return res;
 };
-
-interface minStepsSimilarObj {
-  [key: string]: number;
-}
 
 /**
  * @param {string} s
@@ -258,11 +348,6 @@ export const heightChecker = function(heights: number[]) {
  * @param {Node} root
  * @return {number}
  */
-interface Node {
-  val: number;
-  children: Node[];
-  level?: number | undefined;
-}
 
 export const maxDepth = function(root: Node) {
   if (!root) {
@@ -414,11 +499,6 @@ export const arrayPairSum = (nums: number[]) => {
  * @return {TreeNode}
  */
 
-export interface TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-}
 export const searchBST = (
   root: TreeNode,
   val: number

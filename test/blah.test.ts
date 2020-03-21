@@ -23,10 +23,77 @@ import {
   isPalindrome,
   minSteps,
   smallerNumbersThanCurrent,
+  deepestLeavesSum,
 } from '../src';
 
 // isPalindrome
 describe('blah', () => {
+  it('Deepest Leaves Sum: multiple deepest leaves', () => {
+    const rootTree = {
+      val: 1,
+      left: {
+        val: 2,
+        left: {
+          val: 4,
+          left: null,
+          right: null,
+        },
+        right: { val: 5, left: null, right: null },
+      },
+      right: {
+        val: 3,
+        left: {
+          val: 6,
+          left: null,
+          right: null,
+        },
+        right: {
+          val: 6,
+          left: null,
+          right: null,
+        },
+      },
+    };
+    expect(deepestLeavesSum(rootTree)).toEqual(21);
+  });
+
+  it('Deepest Leaves Sum: one deepest leave', () => {
+    const rootTree = {
+      val: 1,
+      left: {
+        val: 2,
+        left: {
+          val: 4,
+          left: { val: 7, left: null, right: null },
+          right: null,
+        },
+        right: { val: 5, left: null, right: null },
+      },
+      right: {
+        val: 3,
+        left: {
+          val: 6,
+          left: null,
+          right: { val: 8, left: null, right: null },
+        },
+        right: {
+          val: 6,
+          left: null,
+          right: {
+            val: 8,
+            left: null,
+            right: {
+              val: 6,
+              left: null,
+              right: { val: 45, left: null, right: null },
+            },
+          },
+        },
+      },
+    };
+    expect(deepestLeavesSum(rootTree)).toEqual(45);
+  });
+
   it('How Many Numbers Are Smaller Than the Current Number', () => {
     expect(smallerNumbersThanCurrent([8, 1, 2, 2, 3])).toEqual([4, 0, 1, 1, 3]);
   });
