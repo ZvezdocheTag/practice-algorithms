@@ -1,4 +1,5 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
+import { generateEmptyMatrix } from '../utils/matrixUtils';
 
 interface minStepsSimilarObj {
   [key: string]: number;
@@ -19,6 +20,86 @@ export interface TreeNode {
   right: TreeNode | null;
   level?: number | undefined;
 }
+
+interface OperationWithDate {
+  date: string;
+  amount: string;
+}
+interface GroupedByYear {
+  [key: string]: string[];
+}
+// ----------
+
+/**
+ * @param {number} n
+ * @param {number} m
+ * @param {number[][]} indices
+ * @return {number}
+ */
+
+export const oddCells = function(n: number, m: number, indices: number[][]) {
+  // Generate Matrix
+  let im = generateEmptyMatrix(n, m);
+  let res = 0;
+
+  for (let i = 0; i < indices.length; i += 1) {
+    let [ri, ci] = indices[i];
+    im[ri] = im[ri].map(item => item + 1);
+    im.forEach(d => {
+      d[ci] += 1;
+    });
+  }
+
+  for (let i = 0; i < im.length; i += 1) {
+    im[i].forEach(item => {
+      if (item % 2 !== 0) {
+        res += 1;
+      }
+    });
+  }
+  return res;
+};
+
+/**
+ * @param {array} operations
+ * @return {object}
+ */
+export function sortOperations(operations: OperationWithDate[]) {
+  const result: GroupedByYear = {};
+  // 45
+
+  function pad(d: number) {
+    return d < 10 ? '0' + d.toString() : d.toString();
+  }
+
+  for (let i = 0; i < operations.length; i += 1) {
+    const toDate = new Date(operations[i].date);
+    const month = toDate.getMonth();
+    const date = toDate.getDate();
+    const year = toDate.getFullYear();
+    const dateWithoutMonth = `${pad(month + 1)}-${pad(date)}`;
+
+    if (!result[year]) {
+      result[year] = [dateWithoutMonth];
+    } else {
+      result[year].push(dateWithoutMonth);
+    }
+  }
+  return result;
+}
+
+/**
+ * @param {number} day
+ * @param {number} month
+ * @param {number} year
+ * @return {string}
+ */
+export const dayOfTheWeek = function(day: number, month: number, year: number) {
+  return new Date(year, month - 1, day).toLocaleString('us', {
+    weekday: 'long',
+  });
+};
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {

@@ -24,10 +24,70 @@ import {
   minSteps,
   smallerNumbersThanCurrent,
   deepestLeavesSum,
+  dayOfTheWeek,
+  oddCells,
+  sortOperations,
 } from '../src';
 
 // isPalindrome
 describe('blah', () => {
+  it('Cells with Odd Values in a Matrix', () => {
+    const n = 2,
+      m = 3,
+      indices = [[0, 1], [1, 1]];
+
+    expect(oddCells(n, m, indices)).toEqual(6);
+  });
+
+  it('Cells with Odd Values in a Matrix: No Even Values within Cell', () => {
+    const n = 2,
+      m = 2,
+      indices = [[1, 1], [0, 0]];
+
+    expect(oddCells(n, m, indices)).toEqual(0);
+  });
+
+  it('Sort Operations with Year', () => {
+    const operations = [
+      { date: '2017-09-30', amount: '5303' },
+      { date: '2018-03-31', amount: '5654' },
+      { date: '2017-10-31', amount: '5509' },
+      { date: '2017-12-31', amount: '5567' },
+      { date: '2018-01-31', amount: '5597' },
+      { date: '2017-11-30', amount: '5359' },
+      { date: '2018-02-28', amount: '5082' },
+    ];
+
+    const expectedResult = {
+      '2017': ['09-30', '10-31', '12-31', '11-30'],
+      '2018': ['03-31', '01-31', '02-28'],
+    };
+    expect(sortOperations(operations)).toEqual(expectedResult);
+  });
+
+  it('Day of the Week: get Saturday', () => {
+    const day = 31,
+      month = 8,
+      year = 2019;
+
+    expect(dayOfTheWeek(day, month, year)).toEqual('Saturday');
+  });
+  // day = 15, month = 8, year = 1993
+  it('Day of the Week: get Monday', () => {
+    const day = 29,
+      month = 7,
+      year = 2019;
+
+    expect(dayOfTheWeek(day, month, year)).toEqual('Monday');
+  });
+
+  it('Day of the Week: get Sunday', () => {
+    const day = 15,
+      month = 8,
+      year = 1993;
+
+    expect(dayOfTheWeek(day, month, year)).toEqual('Sunday');
+  });
   it('Deepest Leaves Sum: multiple deepest leaves', () => {
     const rootTree = {
       val: 1,
