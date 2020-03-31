@@ -31,6 +31,41 @@ interface GroupedByYear {
 // ----------
 
 /**
+ * @param {number[]} nums
+ * @param {number[]} index
+ * @return {number[]}
+ */
+export const createTargetArray = function(nums: number[], index: number[]) {
+  const initial: number[] = [];
+
+  for (let i = 0; i < index.length; i += 1) {
+    let cI = index[i];
+    let nI = nums[i];
+
+    initial.splice(cI, 0, nI);
+  }
+  return initial;
+};
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+export const subtractProductAndSum = function(n: number) {
+  const toArr = n.toString().split('');
+
+  let multiply = 1;
+  let sum = 0;
+
+  toArr.forEach(item => {
+    let toNum = +item;
+    multiply *= toNum;
+    sum += toNum;
+  });
+  return multiply - sum;
+};
+
+/**
  * @param {number} n
  * @param {number} m
  * @param {number[][]} indices

@@ -27,10 +27,29 @@ import {
   dayOfTheWeek,
   oddCells,
   sortOperations,
+  subtractProductAndSum,
+  createTargetArray,
 } from '../src';
 
-// isPalindrome
 describe('blah', () => {
+  it('Create Target Array in the Given Order', () => {
+    const nums = [0, 1, 2, 3, 4],
+      index = [0, 1, 2, 2, 1];
+
+    // Explanation:
+    // nums       index     target
+    // 0            0        [0]
+    // 1            1        [0,1]
+    // 2            2        [0,1,2]
+    // 3            2        [0,1,3,2]
+    // 4            1        [0,4,1,3,2]
+    expect(createTargetArray(nums, index)).toEqual([0, 4, 1, 3, 2]);
+  });
+
+  it('Subtract the Product and Sum of Digits of an Integer', () => {
+    expect(subtractProductAndSum(234)).toEqual(15);
+  });
+
   it('Cells with Odd Values in a Matrix', () => {
     const n = 2,
       m = 3,
