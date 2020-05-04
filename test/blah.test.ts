@@ -29,9 +29,27 @@ import {
   sortOperations,
   subtractProductAndSum,
   createTargetArray,
+  replaceElements,
+  removeOuterParentheses,
 } from '../src';
 
 describe('blah', () => {
+  it('Remove Outermost Parentheses', () => {
+    const b = '(()())(())(()(()))';
+    const a = '(()())(())';
+    const c = '()()';
+
+    expect(removeOuterParentheses(a)).toEqual('()()()');
+    expect(removeOuterParentheses(b)).toEqual('()()()()(())');
+    expect(removeOuterParentheses(c)).toEqual('');
+  });
+
+  it('Replace Elements with Greatest Element on Right Side', () => {
+    const arr = [17, 18, 5, 4, 6, 1];
+
+    expect(replaceElements(arr)).toEqual([18, 6, 6, 6, 1, -1]);
+  });
+
   it('Create Target Array in the Given Order', () => {
     const nums = [0, 1, 2, 3, 4],
       index = [0, 1, 2, 2, 1];

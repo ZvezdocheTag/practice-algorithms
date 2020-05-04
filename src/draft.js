@@ -1,39 +1,52 @@
-// EXPORT TO MAIN
 /**
- * @param {number[]} nums
- * @param {number[]} index
- * @return {number[]}
+ * @param {string} S
+ * @return {string}
  */
-var createTargetArray = function(nums, index) {
-  const initial = [];
+var removeOuterParentheses = function(S) {
+  const patternOpen = '(';
+  const patternClose = ')';
+  const toArr = S.split('');
 
-  for (let i = 0; i < index.length; i += 1) {
-    let cI = index[i];
-    let nI = nums[i];
+  let res = '';
+  let o = 0;
+  let prev = 0;
+  let i = 0;
+  const splitPos = [];
 
-    initial.splice(cI, 0, nI);
+  while (i < toArr.length) {
+    prev = o;
+
+    if (toArr[i] === patternOpen) {
+      o += 1;
+    }
+    if (toArr[i] === patternClose) {
+      o -= 1;
+    }
+
+    if (o === 0) {
+      splitPos.push(i);
+    }
+
+    i += 1;
   }
-  return initial;
-};
 
-const nums = [0, 1, 2, 3, 4],
-  index = [0, 1, 2, 2, 1];
-createTargetArray(nums, index);
-/**
- * @param {number} n
- * @return {number}
- */
-var subtractProductAndSum = function(n) {
-  const toArr = n.toString().split('');
+  splitPos.forEach((d, idx) => {
+    let start = 0;
+    let end = d;
 
-  let multiply = 1;
-  let sum = 0;
-
-  toArr.forEach(item => {
-    let toNum = +item;
-    multiply *= toNum;
-    sum += toNum;
+    if (idx === 0) {
+      res += S.slice(0 + 1, d);
+    } else {
+      res += S.slice(splitPos[idx - 1] + 2, d);
+    }
   });
-  return multiply - sum;
+
+  return res;
 };
-// console.log(subtractProductAndSum(234));
+const b = '(()())(())(()(()))';
+const a = '(()())(())';
+console.log("removeOuterParentheses('(()())(())')", removeOuterParentheses(b));
+// console.log("removeOuterParentheses('(()())(())')", removeOuterParentheses(a));
+// console.log(b.slice(0 + 1, 5));
+// console.log(b.slice(5 + 2, 9));
+// console.log(b.slice(9 + 2, 17));

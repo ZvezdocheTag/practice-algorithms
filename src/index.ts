@@ -31,6 +31,62 @@ interface GroupedByYear {
 // ----------
 
 /**
+ * @param {string} S
+ * @return {string}
+ */
+export const removeOuterParentheses = function(S: string) {
+  const patternOpen = '(';
+  const patternClose = ')';
+  const toArr = S.split('');
+
+  let res = '';
+  let o = 0;
+  let i = 0;
+  const splitPos: number[] = [];
+
+  while (i < toArr.length) {
+    if (toArr[i] === patternOpen) {
+      o += 1;
+    }
+    if (toArr[i] === patternClose) {
+      o -= 1;
+    }
+
+    if (o === 0) {
+      splitPos.push(i);
+    }
+
+    i += 1;
+  }
+
+  splitPos.forEach((d, idx) => {
+    if (idx === 0) {
+      res += S.slice(0 + 1, d);
+    } else {
+      res += S.slice(splitPos[idx - 1] + 2, d);
+    }
+  });
+
+  return res;
+};
+
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+export const replaceElements = function(arr: number[]) {
+  for (let i = arr.length - 1; i > -1; i -= 1) {
+    if (arr[i] > arr[i - 1]) {
+      arr[i - 1] = arr[i];
+    }
+  }
+
+  arr.shift();
+  arr.push(-1);
+  return arr;
+};
+
+/**
  * @param {number[]} nums
  * @param {number[]} index
  * @return {number[]}
