@@ -1,52 +1,40 @@
 /**
- * @param {string} S
- * @return {string}
+ * @param {number[][]} mat
+ * @return {number[][]}
  */
-var removeOuterParentheses = function(S) {
-  const patternOpen = '(';
-  const patternClose = ')';
-  const toArr = S.split('');
+var diagonalSort = function(mat) {
+  const matLength = mat.length;
+  const [n1] = mat;
+  const rowLength = n1.length;
 
-  let res = '';
-  let o = 0;
-  let prev = 0;
-  let i = 0;
-  const splitPos = [];
+  let diagonals = {};
 
-  while (i < toArr.length) {
-    prev = o;
-
-    if (toArr[i] === patternOpen) {
-      o += 1;
-    }
-    if (toArr[i] === patternClose) {
-      o -= 1;
-    }
-
-    if (o === 0) {
-      splitPos.push(i);
-    }
-
-    i += 1;
-  }
-
-  splitPos.forEach((d, idx) => {
-    let start = 0;
-    let end = d;
-
-    if (idx === 0) {
-      res += S.slice(0 + 1, d);
-    } else {
-      res += S.slice(splitPos[idx - 1] + 2, d);
-    }
+  mat.forEach((row, rowIdx) => {
+    row.forEach((c, cellIdx) => {
+      const diff = rowIdx - cellIdx;
+      if (!diagonals[diff]) {
+        diagonals[diff] = [{ val: c }];
+      } else {
+        diagonals[diff] = [...diagonals[diff], { val: c }].sort(
+          (a, b) => a.val - b.val
+        );
+      }
+    });
   });
 
+  const res = Array.from({ length: matLength }, (_, k) => []);
+
+  mat.forEach((row, rowIdx) => {
+    row.forEach((c, cellIdx) => {
+      const diff = rowIdx - cellIdx;
+      res[rowIdx][cellIdx] = diagonals[diff].shift().val;
+    });
+  });
   return res;
 };
-const b = '(()())(())(()(()))';
-const a = '(()())(())';
-console.log("removeOuterParentheses('(()())(())')", removeOuterParentheses(b));
-// console.log("removeOuterParentheses('(()())(())')", removeOuterParentheses(a));
-// console.log(b.slice(0 + 1, 5));
-// console.log(b.slice(5 + 2, 9));
-// console.log(b.slice(9 + 2, 17));
+
+const mat = [[3, 3, 1, 1], [2, 2, 1, 2], [1, 1, 1, 2]];
+console.log('diagonalSort -> diagonalSort', diagonalSort(mat));
+
+console.log([1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3].slice(0, 4));
+// Output: [[1,1,1,1],[1,2,2,2],[1,2,3,3]]
