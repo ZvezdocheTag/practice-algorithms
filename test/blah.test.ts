@@ -31,9 +31,26 @@ import {
   createTargetArray,
   replaceElements,
   removeOuterParentheses,
+  freqAlphabets,
+  diagonalSort,
 } from '../src';
 
 describe('blah', () => {
+  it(' Sort the Matrix Diagonally', () => {
+    const mattrix = [[3, 3, 1, 1], [2, 2, 1, 2], [1, 1, 1, 2]];
+
+    expect(diagonalSort(mattrix)).toEqual([
+      [1, 1, 1, 1],
+      [1, 2, 2, 2],
+      [1, 2, 3, 3],
+    ]);
+  });
+
+  it('Decrypt String from Alphabet to Integer Mapping', () => {
+    expect(freqAlphabets('10#11#12')).toEqual('jkab');
+    expect(freqAlphabets('1326#')).toEqual('acz');
+  });
+
   it('Remove Outermost Parentheses', () => {
     const b = '(()())(())(()(()))';
     const a = '(()())(())';

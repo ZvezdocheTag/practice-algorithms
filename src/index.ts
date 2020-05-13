@@ -9,6 +9,13 @@ interface dynamicKeyWithArray {
   [key: string]: number[];
 }
 
+interface ObjWithVal {
+  val: number;
+}
+interface dynamicKeyWithObj {
+  [key: string]: ObjWithVal[];
+}
+
 interface Node {
   val: number;
   children: Node[];
@@ -29,6 +36,71 @@ interface GroupedByYear {
   [key: string]: string[];
 }
 // ----------
+
+/**
+ * @param {number[][]} mat
+ * @return {number[][]}
+ */
+export const diagonalSort = function(mat: number[][]) {
+  const matLength = mat.length;
+  let diagonals: dynamicKeyWithObj = {};
+
+  mat.forEach((row, rowIdx) => {
+    row.forEach((c, cellIdx) => {
+      const diff = rowIdx - cellIdx;
+      if (!diagonals[diff]) {
+        diagonals[diff] = [{ val: c }];
+      } else {
+        diagonals[diff] = [...diagonals[diff], { val: c }].sort(
+          (a, b) => a.val - b.val
+        );
+      }
+    });
+  });
+
+  const res: number[][] = Array.from({ length: matLength }, () => []);
+
+  mat.forEach((row, rowIdx) => {
+    row.forEach((_c, cellIdx) => {
+      const diff = rowIdx - cellIdx;
+      const isShifted = diagonals[diff].shift();
+
+      if (isShifted) {
+        res[rowIdx][cellIdx] = isShifted.val;
+      }
+    });
+  });
+  return res;
+};
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+export const freqAlphabets = function(s: string) {
+  function to_a(c1 = 'a', c2 = 'z') {
+    let a = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    return a.slice(a.indexOf(c1), a.indexOf(c2) + 1);
+  }
+
+  const alphabet: string[] = to_a();
+  let sToArr = s.split('');
+  let i = s.length - 1;
+  let res = '';
+
+  while (i >= 0) {
+    if (sToArr[i] === '#') {
+      const toNum = +sToArr.slice(i - 2, i).join('');
+      res = alphabet[toNum - 1] + res;
+      i -= 3;
+    } else {
+      res = alphabet[+sToArr[i] - 1] + res;
+      i -= 1;
+    }
+  }
+
+  return res;
+};
 
 /**
  * @param {string} S
