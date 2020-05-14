@@ -33,9 +33,25 @@ import {
   removeOuterParentheses,
   freqAlphabets,
   diagonalSort,
+  maximum69Number,
+  uniqueMorseRepresentations,
 } from '../src';
 
 describe('blah', () => {
+  it('Maximum 69 Number', () => {
+    const words1 = ['gin', 'zen', 'gig', 'msg'];
+
+    expect(uniqueMorseRepresentations(words1)).toEqual(2);
+  });
+
+  it('Maximum 69 Number', () => {
+    const num1 = 9669;
+    const num2 = 9996;
+
+    expect(maximum69Number(num1)).toEqual(9969);
+    expect(maximum69Number(num2)).toEqual(9999);
+  });
+
   it(' Sort the Matrix Diagonally', () => {
     const mattrix = [[3, 3, 1, 1], [2, 2, 1, 2], [1, 1, 1, 2]];
 

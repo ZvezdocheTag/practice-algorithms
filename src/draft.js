@@ -1,39 +1,59 @@
 /**
- * @param {number[][]} mat
- * @return {number[][]}
+ * @param {string[]} words
+ * @return {number}
  */
-var diagonalSort = function(mat) {
-  const matLength = mat.length;
-  const [n1] = mat;
-  const rowLength = n1.length;
+var uniqueMorseRepresentations = function(words) {
+  const EN_ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+  const MORSE_CODE = [
+    '.-',
+    '-...',
+    '-.-.',
+    '-..',
+    '.',
+    '..-.',
+    '--.',
+    '....',
+    '..',
+    '.---',
+    '-.-',
+    '.-..',
+    '--',
+    '-.',
+    '---',
+    '.--.',
+    '--.-',
+    '.-.',
+    '...',
+    '-',
+    '..-',
+    '...-',
+    '.--',
+    '-..-',
+    '-.--',
+    '--..',
+  ];
 
-  let diagonals = {};
+  const alphToArr = EN_ALPHABET.split('');
+  const res = [];
 
-  mat.forEach((row, rowIdx) => {
-    row.forEach((c, cellIdx) => {
-      const diff = rowIdx - cellIdx;
-      if (!diagonals[diff]) {
-        diagonals[diff] = [{ val: c }];
-      } else {
-        diagonals[diff] = [...diagonals[diff], { val: c }].sort(
-          (a, b) => a.val - b.val
-        );
-      }
-    });
+  words.forEach(word => {
+    const wordToArr = word.split('');
+    const morsePhrase = [];
+
+    while (wordToArr.length) {
+      let first = wordToArr.shift();
+      let indexOfLetter = alphToArr.indexOf(first);
+
+      morsePhrase.push(MORSE_CODE[indexOfLetter]);
+    }
+    const morsePhraseToStr = morsePhrase.join('');
+
+    if (res.indexOf(morsePhraseToStr) === -1) {
+      res.push(morsePhraseToStr);
+    }
   });
-
-  const res = Array.from({ length: matLength }, (_, k) => []);
-
-  mat.forEach((row, rowIdx) => {
-    row.forEach((c, cellIdx) => {
-      const diff = rowIdx - cellIdx;
-      res[rowIdx][cellIdx] = diagonals[diff].shift().val;
-    });
-  });
-  return res;
+  return res.length;
 };
 
-console.log('diagonalSort -> diagonalSort', diagonalSort(mat));
-
-// Output: [[1,1,1,1],[1,2,2,2],[1,2,3,3]]
-Z;
+const words = ['gin', 'zen', 'gig', 'msg'];
+console.log(uniqueMorseRepresentations(words));

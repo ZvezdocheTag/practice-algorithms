@@ -1,5 +1,7 @@
 import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 import { generateEmptyMatrix } from '../utils/matrixUtils';
+import { enAlphabetArr } from '../utils/enAlphabetArr';
+import { MORSE_CODE } from './constatnts';
 
 interface minStepsSimilarObj {
   [key: string]: number;
@@ -36,6 +38,56 @@ interface GroupedByYear {
   [key: string]: string[];
 }
 // ----------
+export const uniqueMorseRepresentations = function(words: string[]) {
+  const alphToArr = enAlphabetArr();
+  const res: string[] = [];
+
+  words.forEach(word => {
+    const wordToArr = word.split('');
+    const morsePhrase = [];
+
+    while (wordToArr.length) {
+      let first = wordToArr.shift();
+      let indexOfLetter;
+
+      if (first) {
+        indexOfLetter = alphToArr.indexOf(first);
+        morsePhrase.push(MORSE_CODE[indexOfLetter]);
+      }
+    }
+    const morsePhraseToStr = morsePhrase.join('');
+
+    if (res.indexOf(morsePhraseToStr) === -1) {
+      res.push(morsePhraseToStr);
+    }
+  });
+  return res.length;
+};
+/**
+ * @param {number} num
+ * @return {number}
+ */
+export const maximum69Number = function(num: number) {
+  const toArr = num.toString().split('');
+  let max = num;
+
+  toArr.forEach((d, idx) => {
+    let modified = [...toArr];
+
+    if (+d === 6) {
+      // mutation of modified
+      modified.splice(idx, 1, '9');
+
+      let sum = +modified.join('');
+
+      if (sum > max) {
+        max = sum;
+      }
+    }
+  });
+
+  return max;
+};
 
 /**
  * @param {number[][]} mat
@@ -78,12 +130,7 @@ export const diagonalSort = function(mat: number[][]) {
  * @return {string}
  */
 export const freqAlphabets = function(s: string) {
-  function to_a(c1 = 'a', c2 = 'z') {
-    let a = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    return a.slice(a.indexOf(c1), a.indexOf(c2) + 1);
-  }
-
-  const alphabet: string[] = to_a();
+  const alphabet: string[] = enAlphabetArr();
   let sToArr = s.split('');
   let i = s.length - 1;
   let res = '';
