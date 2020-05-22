@@ -2,41 +2,8 @@ import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 import { generateEmptyMatrix } from '../utils/matrixUtils';
 import { enAlphabetArr } from '../utils/enAlphabetArr';
 import { MORSE_CODE } from './constatnts';
+import * as interfaces from './interfaces';
 
-interface minStepsSimilarObj {
-  [key: string]: number;
-}
-
-interface dynamicKeyWithArray {
-  [key: string]: number[];
-}
-
-interface ObjWithVal {
-  val: number;
-}
-interface dynamicKeyWithObj {
-  [key: string]: ObjWithVal[];
-}
-
-interface Node {
-  val: number;
-  children: Node[];
-  level?: number | undefined;
-}
-export interface TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  level?: number | undefined;
-}
-
-interface OperationWithDate {
-  date: string;
-  amount: string;
-}
-interface GroupedByYear {
-  [key: string]: string[];
-}
 // ----------
 
 /**
@@ -44,15 +11,15 @@ interface GroupedByYear {
  * @return {TreeNode}
  */
 export const bstFromPreorder = function(preorder: number[]) {
-  let root: TreeNode | null = null;
+  let root: interfaces.TreeNode | null = null;
 
-  const TreeNode = function(this: TreeNode, val: number) {
+  const TreeNode = function(this: interfaces.TreeNode, val: number) {
     this.val = val === undefined ? 0 : val;
     this.left = null;
     this.right = null;
   };
 
-  function insertNode(current: TreeNode, value: number) {
+  function insertNode(current: interfaces.TreeNode, value: number) {
     if (value < current.val) {
       if (current.left === null) {
         current.left = new (TreeNode as any)(value);
@@ -141,7 +108,7 @@ export const maximum69Number = function(num: number) {
  */
 export const diagonalSort = function(mat: number[][]) {
   const matLength = mat.length;
-  let diagonals: dynamicKeyWithObj = {};
+  let diagonals: interfaces.dynamicKeyWithObj = {};
 
   mat.forEach((row, rowIdx) => {
     row.forEach((c, cellIdx) => {
@@ -320,8 +287,8 @@ export const oddCells = function(n: number, m: number, indices: number[][]) {
  * @param {array} operations
  * @return {object}
  */
-export function sortOperations(operations: OperationWithDate[]) {
-  const result: GroupedByYear = {};
+export function sortOperations(operations: interfaces.OperationWithDate[]) {
+  const result: interfaces.GroupedByYear = {};
   // 45
 
   function pad(d: number) {
@@ -367,14 +334,14 @@ export const dayOfTheWeek = function(day: number, month: number, year: number) {
  * @param {TreeNode} root
  * @return {number}
  */
-export const deepestLeavesSum = function(root: TreeNode) {
+export const deepestLeavesSum = function(root: interfaces.TreeNode) {
   const temp = {
     ...root,
     level: 0,
   };
 
-  const levelsL: dynamicKeyWithArray = {};
-  const levelsR: dynamicKeyWithArray = {};
+  const levelsL: interfaces.dynamicKeyWithArray = {};
+  const levelsR: interfaces.dynamicKeyWithArray = {};
 
   let deepest = 0;
 
@@ -383,12 +350,15 @@ export const deepestLeavesSum = function(root: TreeNode) {
   const L = sumDeepestNodes(levelsL, deepest);
   const R = sumDeepestNodes(levelsR, deepest);
 
-  function sumDeepestNodes(nodes: dynamicKeyWithArray, deep: number) {
+  function sumDeepestNodes(
+    nodes: interfaces.dynamicKeyWithArray,
+    deep: number
+  ) {
     return nodes[deep] ? nodes[deep].reduce((a, b) => a + b, 0) : 0;
   }
 
   function innerRecursion(
-    leave: TreeNode,
+    leave: interfaces.TreeNode,
     branch: string | null,
     level: number
   ) {
@@ -450,7 +420,7 @@ export const smallerNumbersThanCurrent = function(nums: number[]) {
  * @return {number}
  */
 export const minSteps = function(s: string, t: string) {
-  let similarPosition: minStepsSimilarObj = {};
+  let similarPosition: interfaces.minStepsSimilarObj = {};
   let operation = 0;
 
   for (let i = 0; i < s.length; i += 1) {
@@ -686,7 +656,7 @@ export const heightChecker = function(heights: number[]) {
  * @return {number}
  */
 
-export const maxDepth = function(root: Node) {
+export const maxDepth = function(root: interfaces.Node) {
   if (!root) {
     return 0;
   }
@@ -697,7 +667,10 @@ export const maxDepth = function(root: Node) {
   };
   let maxLevel: number | undefined = 1;
 
-  function recursion(currentNode: Node, parentNode: Node | null) {
+  function recursion(
+    currentNode: interfaces.Node,
+    parentNode: interfaces.Node | null
+  ) {
     // If current node exist, and has prop: level then we use this  prop
     // If not, we are using -1 as a value, that in any case lower than level of root node
     // and we do not update our maxLevel value
@@ -837,9 +810,9 @@ export const arrayPairSum = (nums: number[]) => {
  */
 
 export const searchBST = (
-  root: TreeNode,
+  root: interfaces.TreeNode,
   val: number
-): TreeNode | null | undefined => {
+): interfaces.TreeNode | null | undefined => {
   const current = [root];
   let matchedVal = null;
   while (current.length !== 0) {
