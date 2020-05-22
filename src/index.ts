@@ -38,6 +38,52 @@ interface GroupedByYear {
   [key: string]: string[];
 }
 // ----------
+
+/**
+ * @param {number[]} preorder
+ * @return {TreeNode}
+ */
+export const bstFromPreorder = function(preorder: number[]) {
+  let root: TreeNode | null = null;
+
+  const TreeNode = function(this: TreeNode, val: number) {
+    this.val = val === undefined ? 0 : val;
+    this.left = null;
+    this.right = null;
+  };
+
+  function insertNode(current: TreeNode, value: number) {
+    if (value < current.val) {
+      if (current.left === null) {
+        current.left = new (TreeNode as any)(value);
+      } else {
+        insertNode(current.left, value);
+      }
+    } else {
+      if (current.right === null) {
+        current.right = new (TreeNode as any)(value);
+      } else {
+        insertNode(current.right, value);
+      }
+    }
+  }
+
+  // recursion to compare
+  while (preorder.length) {
+    let first = preorder.shift();
+
+    if (first) {
+      if (!root) {
+        root = new (TreeNode as any)(first);
+      } else {
+        insertNode(root, first);
+      }
+    }
+  }
+
+  return root;
+};
+
 export const uniqueMorseRepresentations = function(words: string[]) {
   const alphToArr = enAlphabetArr();
   const res: string[] = [];

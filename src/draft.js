@@ -1,59 +1,86 @@
 /**
- * @param {string[]} words
- * @return {number}
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
  */
-var uniqueMorseRepresentations = function(words) {
-  const EN_ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
-  const MORSE_CODE = [
-    '.-',
-    '-...',
-    '-.-.',
-    '-..',
-    '.',
-    '..-.',
-    '--.',
-    '....',
-    '..',
-    '.---',
-    '-.-',
-    '.-..',
-    '--',
-    '-.',
-    '---',
-    '.--.',
-    '--.-',
-    '.-.',
-    '...',
-    '-',
-    '..-',
-    '...-',
-    '.--',
-    '-..-',
-    '-.--',
-    '--..',
-  ];
+/**
+ * @param {number[]} preorder
+ * @return {TreeNode}
+ */
+var bstFromPreorder = function(preorder) {
+  let root = null;
 
-  const alphToArr = EN_ALPHABET.split('');
-  const res = [];
-
-  words.forEach(word => {
-    const wordToArr = word.split('');
-    const morsePhrase = [];
-
-    while (wordToArr.length) {
-      let first = wordToArr.shift();
-      let indexOfLetter = alphToArr.indexOf(first);
-
-      morsePhrase.push(MORSE_CODE[indexOfLetter]);
+  function insertNode(current, value) {
+    if (value < current.val) {
+      if (current.left === null) {
+        current.left = new TreeNode(value);
+      } else {
+        insertNode(current.left, value);
+      }
+    } else {
+      if (current.right === null) {
+        current.right = new TreeNode(value);
+      } else {
+        insertNode(current.right, value);
+      }
     }
-    const morsePhraseToStr = morsePhrase.join('');
+  }
 
-    if (res.indexOf(morsePhraseToStr) === -1) {
-      res.push(morsePhraseToStr);
+  function TreeNode(val, left, right) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+  }
+
+  // recursion to compare
+  while (preorder.length) {
+    let first = preorder.shift();
+
+    if (!root) {
+      root = new TreeNode(first);
+    } else {
+      insertNode(root, first);
     }
-  });
-  return res.length;
+  }
+
+  return root;
 };
 
-const words = ['gin', 'zen', 'gig', 'msg'];
-console.log(uniqueMorseRepresentations(words));
+const r = {
+  Input: [8, 5, 1, 7, 10, 12],
+  Output: [8, 5, 10, 1, 7, null, 12],
+};
+
+console.log(bstFromPreorder(r.Input));
+
+// nsertion
+// insert(value)
+//   Pre: value has passed custom type checks for type T
+//   Post: value has been placed in the correct location in the tree
+//   if root = ø
+//     root ← node(value)
+//   else
+//     insertNode(root, value)
+//   end if
+// end insert
+
+// insertNode(current, value)
+//   Pre: current is the node to start from
+//   Post: value has been placed in the correct location in the tree
+//   if value < current.value
+//     if current.left = ø
+//       current.left ← node(value)
+//     else
+//       InsertNode(current.left, value)
+//     end if
+//   else
+//     if current.right = ø
+//        current.right ← node(value)
+//     else
+//       InsertNode(current.right, value)
+//     end if
+//   end if
+// end insertNode

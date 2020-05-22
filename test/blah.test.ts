@@ -35,9 +35,30 @@ import {
   diagonalSort,
   maximum69Number,
   uniqueMorseRepresentations,
+  bstFromPreorder,
 } from '../src';
 
 describe('blah', () => {
+  it('Construct Binary Search Tree from Preorder Traversal', () => {
+    const input = [8, 5, 1, 7, 10, 12];
+
+    const output = {
+      val: 8,
+      left: {
+        val: 5,
+        left: { val: 1, left: null, right: null },
+        right: { val: 7, left: null, right: null },
+      },
+      right: {
+        val: 10,
+        left: null,
+        right: { val: 12, left: null, right: null },
+      },
+    };
+
+    expect(bstFromPreorder(input)).toEqual(output);
+  });
+
   it('Maximum 69 Number', () => {
     const words1 = ['gin', 'zen', 'gig', 'msg'];
 
@@ -53,7 +74,11 @@ describe('blah', () => {
   });
 
   it(' Sort the Matrix Diagonally', () => {
-    const mattrix = [[3, 3, 1, 1], [2, 2, 1, 2], [1, 1, 1, 2]];
+    const mattrix = [
+      [3, 3, 1, 1],
+      [2, 2, 1, 2],
+      [1, 1, 1, 2],
+    ];
 
     expect(diagonalSort(mattrix)).toEqual([
       [1, 1, 1, 1],
@@ -104,7 +129,10 @@ describe('blah', () => {
   it('Cells with Odd Values in a Matrix', () => {
     const n = 2,
       m = 3,
-      indices = [[0, 1], [1, 1]];
+      indices = [
+        [0, 1],
+        [1, 1],
+      ];
 
     expect(oddCells(n, m, indices)).toEqual(6);
   });
@@ -112,7 +140,10 @@ describe('blah', () => {
   it('Cells with Odd Values in a Matrix: No Even Values within Cell', () => {
     const n = 2,
       m = 2,
-      indices = [[1, 1], [0, 0]];
+      indices = [
+        [1, 1],
+        [0, 0],
+      ];
 
     expect(oddCells(n, m, indices)).toEqual(0);
   });
