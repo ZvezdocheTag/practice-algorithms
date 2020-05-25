@@ -1,86 +1,24 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
+ * @param {number} n
+ * @return {number[]}
  */
-/**
- * @param {number[]} preorder
- * @return {TreeNode}
- */
-var bstFromPreorder = function(preorder) {
-  let root = null;
+var sumZero = function(n) {
+  let res = [];
+  let min = -n;
+  let max = n;
 
-  function insertNode(current, value) {
-    if (value < current.val) {
-      if (current.left === null) {
-        current.left = new TreeNode(value);
-      } else {
-        insertNode(current.left, value);
-      }
+  while (res.length !== n - 1) {
+    if (!res.length) {
+      res.push(-n);
     } else {
-      if (current.right === null) {
-        current.right = new TreeNode(value);
-      } else {
-        insertNode(current.right, value);
-      }
+      res.push(n - res.length);
     }
   }
+  const missed = res.reduce((curr, next) => curr + next, 0);
 
-  function TreeNode(val, left, right) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-
-  // recursion to compare
-  while (preorder.length) {
-    let first = preorder.shift();
-
-    if (!root) {
-      root = new TreeNode(first);
-    } else {
-      insertNode(root, first);
-    }
-  }
-
-  return root;
+  return [...res, -missed];
 };
 
-const r = {
-  Input: [8, 5, 1, 7, 10, 12],
-  Output: [8, 5, 10, 1, 7, null, 12],
-};
-
-console.log(bstFromPreorder(r.Input));
-
-// nsertion
-// insert(value)
-//   Pre: value has passed custom type checks for type T
-//   Post: value has been placed in the correct location in the tree
-//   if root = ø
-//     root ← node(value)
-//   else
-//     insertNode(root, value)
-//   end if
-// end insert
-
-// insertNode(current, value)
-//   Pre: current is the node to start from
-//   Post: value has been placed in the correct location in the tree
-//   if value < current.value
-//     if current.left = ø
-//       current.left ← node(value)
-//     else
-//       InsertNode(current.left, value)
-//     end if
-//   else
-//     if current.right = ø
-//        current.right ← node(value)
-//     else
-//       InsertNode(current.right, value)
-//     end if
-//   end if
-// end insertNode
+// Input: n = 5
+// Output: [-7,-1,1,3,4]
+// Explanation: These arrays also are accepted [-5,-1,1,2,3] , [-3,-1,2,-2,4].

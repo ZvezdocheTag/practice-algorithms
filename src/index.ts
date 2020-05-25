@@ -1,15 +1,31 @@
-import { getRandomArbitrary } from '../utils/randomRangeGenerator';
 import { generateEmptyMatrix } from '../utils/matrixUtils';
 import { enAlphabetArr } from '../utils/enAlphabetArr';
 import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
 
-// ----------
-
 /**
  * @param {number[]} preorder
  * @return {TreeNode}
  */
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+export function sumZero(n: number) {
+  const res = [];
+
+  while (res.length !== n - 1) {
+    if (!res.length) {
+      res.push(-n);
+    } else {
+      res.push(n - res.length);
+    }
+  }
+  const missed = res.reduce((curr, next) => curr + next, 0);
+
+  return [...res, -missed];
+}
+
 export const bstFromPreorder = function(preorder: number[]) {
   let root: interfaces.TreeNode | null = null;
 
@@ -525,27 +541,6 @@ export const sortArrayByParity = function(A: number[]) {
     }
   }
   return s;
-};
-
-/**
- * @param {number} n
- * @return {number[]}
- */
-export const sumZero = function(n: number) {
-  let total = 0;
-
-  let gen = Array.from({ length: n }, (_, idx) => {
-    if (idx === n - 1) {
-      return -total;
-    }
-    let firstRandom = getRandomArbitrary(-10, 10);
-    let toFloor = Math.floor(firstRandom);
-    total += toFloor;
-
-    return toFloor;
-  });
-
-  return gen;
 };
 
 /**

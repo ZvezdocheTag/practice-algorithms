@@ -4,8 +4,6 @@ import {
   uniqueOccurrences,
   pairSumSequence,
   diStringMatch,
-  searchBST,
-  TreeNode,
   arrayPairSum,
   decompressRLElist,
   numberOfSteps,
@@ -17,6 +15,7 @@ import {
   balancedStringSplit,
   judgeCircle,
   sumZero,
+  searchBST,
   sortArrayByParity,
   generateTheString,
   countNegatives,
@@ -37,6 +36,7 @@ import {
   uniqueMorseRepresentations,
   bstFromPreorder,
 } from '../src';
+import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
   it('Construct Binary Search Tree from Preorder Traversal', () => {
@@ -316,7 +316,10 @@ describe('blah', () => {
   it(' Find N Unique Integers Sum up to Zero', () => {
     const input = 7;
     const generateArray = sumZero(input);
+    const isArrayUnique = (arr: number[]) =>
+      Array.isArray(arr) && new Set(arr).size === arr.length; // add function to check that array is unique.
 
+    expect(isArrayUnique(generateArray)).toBeTruthy();
     expect(generateArray.length).toEqual(input);
     expect(generateArray.reduce((curr, next) => curr + next, 0)).toEqual(0);
   });
@@ -454,7 +457,7 @@ describe('blah', () => {
     expect(diStringMatch('III')).toEqual([0, 1, 2, 3]);
   });
 
-  const tree: TreeNode = {
+  const tree: interfaces.TreeNode = {
     val: 4,
     right: { val: 7, right: null, left: null },
     left: {
