@@ -2,6 +2,25 @@ import { generateEmptyMatrix } from '../utils/matrixUtils';
 import { enAlphabetArr } from '../utils/enAlphabetArr';
 import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+export var sumEvenGrandparent = function(root: number) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Helpful dev-only error message');
+    console.log(root);
+  }
+};
+
+sumEvenGrandparent(3);
 
 /**
  * @param {number[]} preorder
