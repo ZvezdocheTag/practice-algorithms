@@ -2,25 +2,63 @@ import { generateEmptyMatrix } from '../utils/matrixUtils';
 import { enAlphabetArr } from '../utils/enAlphabetArr';
 import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
+
 /**
  * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
  * }
  */
 /**
  * @param {TreeNode} root
  * @return {number}
  */
-export var sumEvenGrandparent = function(root: number) {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Helpful dev-only error message');
-    console.log(root);
-  }
-};
+export const sumEvenGrandparent = function(root: interfaces.TreeNode) {
+  let current: interfaces.TreeNode = {
+    ...root,
+    parent: null,
+  };
 
-sumEvenGrandparent(3);
+  const parents: interfaces.TreeNode[] = [];
+
+  if (current !== null) {
+    traverse(current);
+  }
+
+  function traverse(node: interfaces.TreeNode) {
+    if (node === null) {
+      return;
+    }
+
+    parents.push(node);
+
+    if (node.left) {
+      traverse({
+        ...node.left,
+        parent: node,
+      });
+    }
+
+    if (node.right) {
+      traverse({
+        ...node.right,
+        parent: node,
+      });
+    }
+  }
+
+  let sum = 0;
+
+  parents.forEach(d => {
+    if (d.parent && d.parent.parent && d.parent.parent.val % 2 === 0) {
+      sum += d.val;
+    }
+  });
+
+  return sum;
+};
 
 /**
  * @param {number[]} preorder

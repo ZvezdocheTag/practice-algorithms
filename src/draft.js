@@ -21,7 +21,48 @@ const rootInitial = {
  * @return {number}
  */
 var sumEvenGrandparent = function(root) {
-  console.log(root);
+  let current = {
+    ...root,
+    parent: null,
+  };
+
+  const parents = [];
+
+  if (current !== null) {
+    traverse(current);
+  }
+
+  function traverse(cr) {
+    if (cr === null) {
+      return;
+    }
+
+    parents.push(cr);
+
+    if (cr.left) {
+      traverse({
+        ...cr.left,
+        parent: cr,
+      });
+    }
+
+    if (cr.right) {
+      traverse({
+        ...cr.right,
+        parent: cr,
+      });
+    }
+  }
+
+  let sum = 0;
+
+  parents.forEach(d => {
+    if (d.parent && d.parent.parent && d.parent.parent.val % 2 === 0) {
+      sum += d.val;
+    }
+  });
+
+  return sum;
 };
 
 console.log(sumEvenGrandparent(rootInitial));

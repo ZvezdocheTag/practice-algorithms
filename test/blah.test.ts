@@ -35,10 +35,41 @@ import {
   maximum69Number,
   uniqueMorseRepresentations,
   bstFromPreorder,
+  sumEvenGrandparent,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it('Sum of Nodes with Even-Valued Grandparent', () => {
+    const input = {
+      val: 6,
+      left: {
+        val: 7,
+        left: {
+          val: 2,
+          left: { val: 9, left: null, right: null },
+          right: null,
+        },
+        right: {
+          val: 7,
+          left: { val: 1, left: null, right: null },
+          right: { val: 4, left: null, right: null },
+        },
+      },
+      right: {
+        val: 8,
+        left: { val: 1, left: null, right: null },
+        right: {
+          val: 3,
+          left: null,
+          right: { val: 5, left: null, right: null },
+        },
+      },
+    };
+
+    expect(sumEvenGrandparent(input)).toEqual(18);
+  });
+
   it('Construct Binary Search Tree from Preorder Traversal', () => {
     const input = [8, 5, 1, 7, 10, 12];
 

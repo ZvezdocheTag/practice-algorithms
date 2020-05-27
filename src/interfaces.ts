@@ -23,6 +23,7 @@ export interface TreeNode {
   left: TreeNode | null;
   right: TreeNode | null;
   level?: number | undefined;
+  parent?: TreeNode | null;
 }
 
 export interface OperationWithDate {
