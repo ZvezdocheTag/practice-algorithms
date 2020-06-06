@@ -36,10 +36,38 @@ import {
   uniqueMorseRepresentations,
   bstFromPreorder,
   sumEvenGrandparent,
+  groupThePeople,
+  getTargetCopy,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it(' Find a Corresponding Node of a Binary Tree in a Clone of That Tree', () => {
+    const treeNode = {
+      val: 7,
+      left: { val: 4, left: null, right: null },
+      right: {
+        val: 3,
+        left: { val: 6, left: null, right: null },
+        right: { val: 19, left: null, right: null },
+      },
+    };
+
+    const target = {
+      val: 3,
+      left: { val: 6, left: null, right: null },
+      right: { val: 19, left: null, right: null },
+    };
+    expect(
+      getTargetCopy(treeNode, Object.assign({}, treeNode), target)
+    ).toEqual(target);
+  });
+  it('Group the People Given the Group Size They Belong To', () => {
+    const groupSizes = [3, 3, 3, 3, 3, 1, 3];
+
+    expect(groupThePeople(groupSizes)).toEqual([[5], [0, 1, 2], [3, 4, 6]]);
+  });
+
   it('Sum of Nodes with Even-Valued Grandparent', () => {
     const input = {
       val: 6,

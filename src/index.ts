@@ -5,6 +5,82 @@ import * as interfaces from './interfaces';
 
 /**
  * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} original
+ * @param {TreeNode} cloned
+ * @param {TreeNode} target
+ * @return {TreeNode}
+ */
+
+export const getTargetCopy = function(
+  original: interfaces.TreeNode,
+  cloned: interfaces.TreeNode,
+  target: interfaces.TreeNode
+) {
+  let clonedMatchedNode = null;
+
+  if (original !== null) {
+    recursion(cloned, target.val);
+  }
+  function recursion(node: interfaces.TreeNode, target: number) {
+    if (node === null) {
+      return;
+    }
+
+    if (node.val === target) {
+      clonedMatchedNode = node;
+      return;
+    }
+
+    if (node.left) {
+      recursion(node.left, target);
+    }
+
+    if (node.right) {
+      recursion(node.right, target);
+    }
+  }
+  return clonedMatchedNode;
+};
+
+/**
+ * @param {number[]} groupSizes
+ * @return {number[][]}
+ */
+export const groupThePeople = (groupSizes: number[]) => {
+  // const arrs = Array.from({ length: groupSizes.length }, (_, k) => k);
+  const res: number[][] = [];
+  const obj: interfaces.dynamicKeyWithArray = {};
+  groupSizes.forEach((d, idx) => {
+    if (!obj[d]) {
+      obj[d] = [idx];
+    } else {
+      obj[d].push(idx);
+    }
+  });
+
+  Object.entries(obj).forEach(([key, val]) => {
+    const keyToNum = +key;
+    if (val.length > keyToNum) {
+      let curr = val;
+      while (curr.length > 0) {
+        res.push(curr.slice(0, keyToNum));
+        curr = curr.slice(keyToNum, curr.length);
+      }
+    } else {
+      res.push(val);
+    }
+  });
+
+  return res;
+};
+/**
+ * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
  *     this.val = (val===undefined ? 0 : val)
  *     this.left = (left===undefined ? null : left)
