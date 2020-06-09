@@ -38,10 +38,22 @@ import {
   sumEvenGrandparent,
   groupThePeople,
   getTargetCopy,
+  maxIncreaseKeepingSkyline,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it('Max Increase to Keep City Skyline', () => {
+    const grid = [
+      [3, 0, 8, 4],
+      [2, 4, 5, 7],
+      [9, 2, 6, 3],
+      [0, 3, 1, 0],
+    ];
+
+    expect(maxIncreaseKeepingSkyline(grid)).toEqual(35);
+  });
+
   it(' Find a Corresponding Node of a Binary Tree in a Clone of That Tree', () => {
     const treeNode = {
       val: 7,
@@ -62,6 +74,7 @@ describe('blah', () => {
       getTargetCopy(treeNode, Object.assign({}, treeNode), target)
     ).toEqual(target);
   });
+
   it('Group the People Given the Group Size They Belong To', () => {
     const groupSizes = [3, 3, 3, 3, 3, 1, 3];
 

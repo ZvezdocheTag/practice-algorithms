@@ -1,58 +1,53 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
+ * @param {number[][]} grid
+ * @return {number}
  */
-/**
- * @param {TreeNode} original
- * @param {TreeNode} cloned
- * @param {TreeNode} target
- * @return {TreeNode}
- */
+var maxIncreaseKeepingSkyline = function(grid) {
+  let maxRow = [];
+  let maxCol = [];
+  const newGrid = Array.from({ length: grid.length }, () => []);
 
-var getTargetCopy = function(original, cloned, target) {
-  let clonedMatchedNode = null;
+  for (let i = 0; i < grid.length; i += 1) {
+    for (let j = 0; j < grid[i].length; j += 1) {
+      if (!maxCol[i]) {
+        maxCol[i] = grid[j][i];
+      } else if (maxCol[i] < grid[j][i]) {
+        maxCol[i] = grid[j][i];
+      }
 
-  if (cloned !== null) {
-    recursion(cloned, target.val);
-  }
-  function recursion(node, target) {
-    if (node === null) {
-      return;
-    }
-
-    if (node.val === target) {
-      clonedMatchedNode = node;
-      return;
-    }
-
-    if (node.left) {
-      recursion(node.left, target);
-    }
-
-    if (node.right) {
-      recursion(node.right, target);
+      if (!maxRow[i]) {
+        maxRow[i] = grid[i][j];
+      } else if (maxRow[i] < grid[i][j]) {
+        maxRow[i] = grid[i][j];
+      }
     }
   }
-  return clonedMatchedNode;
+
+  let diff = 0;
+  for (let i = 0; i < grid.length; i += 1) {
+    // Here we are calculating difference
+    // console.log
+    for (let j = 0; j < grid[i].length; j += 1) {
+      if (maxRow[i] > maxCol[j]) {
+        newGrid[i][j] = maxCol[j];
+
+        diff += maxCol[j] - grid[i][j];
+      } else {
+        newGrid[i][j] = maxRow[i];
+
+        diff += maxRow[i] - grid[i][j];
+      }
+    }
+  }
+
+  return diff;
 };
 
-const treeNode = {
-  val: 7,
-  left: { val: 4, left: null, right: null },
-  right: {
-    val: 3,
-    left: { val: 6, left: null, right: null },
-    right: { val: 19, left: null, right: null },
-  },
-};
+const grid = [
+  [3, 0, 8, 4],
+  [2, 4, 5, 7],
+  [9, 2, 6, 3],
+  [0, 3, 1, 0],
+];
 
-console.log(
-  getTargetCopy(treeNode, Object.assign({}, treeNode), {
-    val: 3,
-    left: { val: 6, left: null, right: null },
-    right: { val: 19, left: null, right: null },
-  })
-);
+console.log(maxIncreaseKeepingSkyline(grid));
