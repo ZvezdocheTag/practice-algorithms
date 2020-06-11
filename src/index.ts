@@ -4,6 +4,39 @@ import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
 
 /**
+ * @param {number[]} rating
+ * @return {number}
+ *
+ * TODO: really slow, experiment with another  possible ways of implementation
+ */
+export const numTeams = function(rating: number[]) {
+  const result = [];
+
+  while (rating.length > 0) {
+    let i = rating.shift();
+
+    for (let j = 0; j < rating.length; j += 1) {
+      for (let k = 1; k < rating.length; k += 1) {
+        let rJ = rating[j];
+        let rK = rating[k];
+        let jO = j + 1;
+        let kO = k + 1;
+
+        if (typeof i !== 'undefined') {
+          if ((i < rJ && rJ < rK) || (i > rJ && rJ > rK)) {
+            if (jO <= kO) {
+              result.push([i, rJ, rK]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result.length;
+};
+
+/**
  * @param {number[][]} grid
  * @return {number}
  */
@@ -14,21 +47,26 @@ export const maxIncreaseKeepingSkyline = function(grid: number[][]) {
 
   for (let i = 0; i < grid.length; i += 1) {
     for (let j = 0; j < grid[i].length; j += 1) {
+      let cellHorizontal = grid[i][j];
+      let cellVertical = grid[j][i];
+
       if (!maxCol[i]) {
-        maxCol[i] = grid[j][i];
-      } else if (maxCol[i] < grid[j][i]) {
-        maxCol[i] = grid[j][i];
+        maxCol[i] = cellVertical;
+      } else if (maxCol[i] < cellVertical) {
+        maxCol[i] = cellVertical;
       }
 
       if (!maxRow[i]) {
-        maxRow[i] = grid[i][j];
-      } else if (maxRow[i] < grid[i][j]) {
-        maxRow[i] = grid[i][j];
+        maxRow[i] = cellHorizontal;
+      } else if (maxRow[i] < cellHorizontal) {
+        maxRow[i] = cellHorizontal;
       }
     }
   }
 
   let diff = 0;
+
+  // TODO: try to move this logic to upper for loop scope
   for (let i = 0; i < grid.length; i += 1) {
     for (let j = 0; j < grid[i].length; j += 1) {
       if (maxRow[i] > maxCol[j]) {

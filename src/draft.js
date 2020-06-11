@@ -1,53 +1,32 @@
 /**
- * @param {number[][]} grid
+ * @param {number[]} rating
  * @return {number}
  */
-var maxIncreaseKeepingSkyline = function(grid) {
-  let maxRow = [];
-  let maxCol = [];
-  const newGrid = Array.from({ length: grid.length }, () => []);
+var numTeams = function(rating) {
+  const result = [];
 
-  for (let i = 0; i < grid.length; i += 1) {
-    for (let j = 0; j < grid[i].length; j += 1) {
-      if (!maxCol[i]) {
-        maxCol[i] = grid[j][i];
-      } else if (maxCol[i] < grid[j][i]) {
-        maxCol[i] = grid[j][i];
-      }
+  while (rating.length > 0) {
+    let i = rating.shift();
 
-      if (!maxRow[i]) {
-        maxRow[i] = grid[i][j];
-      } else if (maxRow[i] < grid[i][j]) {
-        maxRow[i] = grid[i][j];
-      }
-    }
-  }
+    for (let j = 0; j < rating.length; j += 1) {
+      for (let k = 1; k < rating.length; k += 1) {
+        let rJ = rating[j];
+        let rK = rating[k];
+        let jO = j + 1;
+        let kO = k + 1;
 
-  let diff = 0;
-  for (let i = 0; i < grid.length; i += 1) {
-    // Here we are calculating difference
-    // console.log
-    for (let j = 0; j < grid[i].length; j += 1) {
-      if (maxRow[i] > maxCol[j]) {
-        newGrid[i][j] = maxCol[j];
-
-        diff += maxCol[j] - grid[i][j];
-      } else {
-        newGrid[i][j] = maxRow[i];
-
-        diff += maxRow[i] - grid[i][j];
+        if ((i < rJ && rJ < rK) || (i > rJ && rJ > rK)) {
+          if (jO <= kO) {
+            result.push([i, rJ, rK]);
+          }
+        }
       }
     }
   }
 
-  return diff;
+  console.log(result);
+  return result.length;
 };
 
-const grid = [
-  [3, 0, 8, 4],
-  [2, 4, 5, 7],
-  [9, 2, 6, 3],
-  [0, 3, 1, 0],
-];
-
-console.log(maxIncreaseKeepingSkyline(grid));
+let rating = [3, 6, 7, 5, 1];
+numTeams(rating);

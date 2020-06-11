@@ -39,10 +39,16 @@ import {
   groupThePeople,
   getTargetCopy,
   maxIncreaseKeepingSkyline,
+  numTeams,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it('Count Number of Teams', () => {
+    let rating = [3, 6, 7, 5, 1];
+
+    expect(numTeams(rating)).toEqual(3);
+  });
   it('Max Increase to Keep City Skyline', () => {
     const grid = [
       [3, 0, 8, 4],
