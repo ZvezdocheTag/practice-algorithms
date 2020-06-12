@@ -1,32 +1,22 @@
 /**
- * @param {number[]} rating
- * @return {number}
+ * @param {number[]} queries
+ * @param {number} m
+ * @return {number[]}
  */
-var numTeams = function(rating) {
-  const result = [];
-
-  while (rating.length > 0) {
-    let i = rating.shift();
-
-    for (let j = 0; j < rating.length; j += 1) {
-      for (let k = 1; k < rating.length; k += 1) {
-        let rJ = rating[j];
-        let rK = rating[k];
-        let jO = j + 1;
-        let kO = k + 1;
-
-        if ((i < rJ && rJ < rK) || (i > rJ && rJ > rK)) {
-          if (jO <= kO) {
-            result.push([i, rJ, rK]);
-          }
-        }
-      }
+var processQueries = function(queries, m) {
+  let P = Array.from({ length: m }, (_, idx) => idx + 1);
+  const r = [];
+  for (let i = 0; i < P.length; i += 1) {
+    let Pos = P.findIndex(el => el === queries[i]); // 2
+    if (Pos !== -1) {
+      r.push(Pos);
     }
+    P.unshift(P.splice(Pos, 1)[0]);
   }
-
-  console.log(result);
-  return result.length;
+  return r;
 };
 
-let rating = [3, 6, 7, 5, 1];
-numTeams(rating);
+let queries = [3, 1, 2, 1],
+  m = 5;
+
+processQueries(queries, m);

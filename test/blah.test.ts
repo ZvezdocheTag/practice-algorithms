@@ -40,10 +40,18 @@ import {
   getTargetCopy,
   maxIncreaseKeepingSkyline,
   numTeams,
+  processQueries,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it(' Queries on a Permutation With Key', () => {
+    let queries = [3, 1, 2, 1],
+      m = 5;
+
+    expect(processQueries(queries, m)).toEqual(3);
+  });
+
   it('Count Number of Teams', () => {
     let rating = [3, 6, 7, 5, 1];
 
