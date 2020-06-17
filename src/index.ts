@@ -4,6 +4,51 @@ import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
 
 /**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} L
+ * @param {number} R
+ * @return {number}
+ */
+
+export const rangeSumBST = function(
+  root: interfaces.TreeNode,
+  L: number,
+  R: number
+) {
+  let result = 0;
+
+  if (root !== null) {
+    traverse(root);
+  }
+
+  function traverse(node: interfaces.TreeNode) {
+    if (node === null) {
+      return;
+    }
+
+    if (node.val >= L && node.val <= R) {
+      result += node.val;
+    }
+
+    if (node.val && node.left) {
+      traverse(node.left);
+    }
+
+    if (node.val && node.right) {
+      traverse(node.right);
+    }
+  }
+
+  return result;
+};
+/**
  * @param {number[]} queries
  * @param {number} m
  * @return {number[]}
@@ -258,7 +303,9 @@ export function sumZero(n: number) {
   return [...res, -missed];
 }
 
-export const bstFromPreorder = function(preorder: number[]) {
+export const bstFromPreorder = function(
+  preorder: number[]
+): interfaces.TreeNode | null {
   let root: interfaces.TreeNode | null = null;
 
   const TreeNode = function(this: interfaces.TreeNode, val: number) {
@@ -296,7 +343,11 @@ export const bstFromPreorder = function(preorder: number[]) {
     }
   }
 
-  return root;
+  if (root) {
+    return root;
+  }
+
+  return null;
 };
 
 export const uniqueMorseRepresentations = function(words: string[]) {

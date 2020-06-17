@@ -41,15 +41,43 @@ import {
   maxIncreaseKeepingSkyline,
   numTeams,
   processQueries,
+  rangeSumBST,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it('Range Sum of BST', () => {
+    // CASE 1
+    const input2: number[] = [18, 9, 27, 6, 15, 24, 30, 3, 0, 12, 0, 21];
+    const L2 = 18,
+      R2 = 24;
+    const output2 = 63;
+
+    const constructFirstTree = bstFromPreorder(input2);
+
+    if (constructFirstTree) {
+      expect(rangeSumBST(constructFirstTree, L2, R2)).toEqual(output2);
+    }
+
+    // CASE 2
+    const input1: number[] = [10, 5, 15, 3, 7, 13, 18, 1, 0, 6],
+      L1 = 6,
+      R1 = 10;
+
+    const output1 = 23;
+
+    const constructSecondTree = bstFromPreorder(input1);
+
+    if (constructSecondTree) {
+      expect(rangeSumBST(constructSecondTree, L1, R1)).toEqual(output1);
+    }
+  });
+
   it(' Queries on a Permutation With Key', () => {
     let queries = [3, 1, 2, 1],
       m = 5;
 
-    expect(processQueries(queries, m)).toEqual(3);
+    expect(processQueries(queries, m)).toEqual([2, 1, 2, 1]);
   });
 
   it('Count Number of Teams', () => {
