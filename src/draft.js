@@ -1,130 +1,156 @@
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @param {number} L
- * @param {number} R
- * @return {number}
- */
+// const input = {
+//   val: 6,
+//   left: {
+//     val: 7,
+//     left: {
+//       val: 2,
+//       2: { val: 9, left: null, right: null },
+//       right: null,
+//     },
+//     right: {
+//       val: 7,
+//       left: { val: 1, left: null, right: null },
+//       right: { val: 4, left: null, right: null },
+//     },
+//   },
+//   right: {
+//     val: 8,
+//     left: { val: 1, left: null, right: null },
+//     right: {
+//       val: 3,
+//       left: null,
+//       right: { val: 5, left: null, right: null },
+//     },
+//   },
+// };
 
-// class Solution {
-//   int ans;
-//   public int rangeSumBST(TreeNode root, int L, int R) {
-//       ans = 0;
-//       dfs(root, L, R);
-//       return ans;
-//   }
+// // 1) Flatten both the trees in to sorted lists.
+// // 2) Merge the lists from what you got in 1)
+// // 3) Construct the tree out of what you got in 2)
 
-//   public void dfs(TreeNode node, int L, int R) {
-//       if (node != null) {
-//           if (L <= node.val && node.val <= R)
-//               ans += node.val;
-//           if (L < node.val)
-//               dfs(node.left, L, R);
-//           if (node.val < R)
-//               dfs(node.right, L, R);
-//       }
-//   }
-// }
-var rangeSumBST = function(root, L, R) {
-  let result = 0;
+// /**
+//  * Definition for a binary tree node.
+//  * function TreeNode(val) {
+//  *     this.val = val;
+//  *     this.left = this.right = null;
+//  * }
+//  */
+// /**
+//  * @param {TreeNode} t1
+//  * @param {TreeNode} t2
+//  * @return {TreeNode}
+//  */
+var mergeTrfees = function(t1, t2) {
+  const output = [];
 
-  if (root !== null) {
-    traverse(root);
-  }
+  traverse(t1, t2);
 
   function traverse(node) {
-    if (node === null) {
-      return;
+    if (!node) {
+      return null;
     }
 
-    if (node.val >= L && node.val <= R) {
-      result += node.val;
-    }
+    output.push(node.val);
+    // console.log(node.val);
 
-    if (node.val) {
-      traverse(node.left);
-    }
-
-    if (node.val) {
+    if (node.right) {
       traverse(node.right);
+    } else {
+      //   output.push(null);
+    }
+    if (node.left) {
+      traverse(node.left);
+    } else {
+      //   output.push(null);
     }
   }
 
-  return result;
+  return output;
 };
 
-const TreeNode = {
-  val: 10,
-  left: {
-    val: 5,
-    left: { val: 3, left: null, right: null },
-    right: { val: 7, left: null, right: null },
-  },
-  right: {
-    val: 15,
-    left: null,
-    right: { val: 18, left: null, right: null },
-  },
-};
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
 
-const TreeSecond = {
-  val: 10,
-  left: {
-    val: 5,
-    left: { val: 3, left: { val: 1, left: null, right: null }, right: null },
-    right: { val: 7, left: { val: 6, left: null, right: null }, right: null },
-  },
-  right: {
-    val: 15,
-    left: { val: 13, left: null, right: null },
-    right: { val: 18, left: null, right: null },
-  },
-};
+function insertLevelOrder(arr, root, i, n) {
+  //   console.log(i, n, i < n, '');
+  //   if (!root) {
+  //     return null;
+  //   }
+  if (i < n) {
+    let temNode = new TreeNode(arr[i]);
+    root = temNode;
 
-const TreeThird = {
-  val: 15,
-  left: {
-    val: 9,
-    left: { val: 7, left: { val: 5, left: null, right: null }, right: null },
-    right: { val: 13, left: { val: 11, left: null, right: null }, right: null },
-  },
-  right: {
-    val: 21,
-    left: { val: 19, left: { val: 17, left: null, right: null }, right: null },
-    right: { val: 23, left: null, right: null },
-  },
-};
+    root.left = insertLevelOrder(arr, root.left, 2 * i + 1, n);
+    root.right = insertLevelOrder(arr, root.right, 2 * i + 2, n);
+  }
 
-const L = 6,
-  R = 10;
+  return root;
+}
 
-const L1 = 19,
-  R1 = 21;
+function flatten(root) {
+  if (root == null || (root.left == null && root.right == null)) {
+    return;
+  }
 
-const Tree4 = {
-  val: 18,
-  left: {
-    val: 9,
-    left: { val: 6, left: { val: 3, left: null, right: null }, right: null },
-    right: { val: 15, left: { val: 12, left: null, right: null }, right: null },
-  },
-  right: {
-    val: 27,
-    left: { val: 24, left: { val: 21, left: null, right: null }, right: null },
-    right: { val: 30, left: null, right: null },
-  },
-};
-const L2 = 18,
-  R2 = 24;
+  if (root.left !== null) {
+    flatten(root.left);
 
-// [18,9,27,6,15,24,30,3,null,12,null,21]
-// 18
-// 24
+    let tempRight = root.right;
+    root.right = root.left;
+    root.left = null;
 
-rangeSumBST(Tree4, L2, R2);
+    let t = root.right;
+
+    while (t.right !== null) {
+      t = t.right;
+    }
+
+    t.right = tempRight;
+  }
+
+  flatten(root.right);
+
+  return root;
+}
+
+function inOrder(node) {
+  if (!node) {
+    return;
+  }
+
+  inorder(node.left);
+  inorder(node.right);
+}
+
+function mergeTrees(t1, t2) {
+  //   console.log(t1, t2);
+  if (!t1) {
+    return t2;
+  }
+
+  if (!t2) {
+    return t1;
+  }
+
+  t1.val += t2.val;
+
+  t1.left = mergeTrees(t1.right, t2.right);
+  t1.right = mergeTrees(t1.left, t2.left);
+
+  return t1;
+}
+function constructBSTfromArray() {
+  let arr = [1, 2, 3, 4, 5, 6, 6, 6, 6],
+    n = arr.length,
+    root = null,
+    out = insertLevelOrder(arr, root, 0, n);
+  // inOrder(root)
+  console.log(out);
+  console.log(mergeTrees(out, out), 'ME');
+  //   console.log(out);
+}
+// console.log(object)
+
+constructBSTfromArray();

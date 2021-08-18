@@ -42,10 +42,30 @@ import {
   numTeams,
   processQueries,
   rangeSumBST,
+  goodNodes,
 } from '../src';
 import * as interfaces from '../src/interfaces';
 
 describe('blah', () => {
+  it(' Count Good Nodes in Binary Tree', () => {
+    // CASE 1
+    // const input = [3, 1, 4, 3, null, 1, 5];
+
+    const constructFirstTree = {
+      val: 9,
+      left: {
+        val: 3,
+        left: null,
+        right: { val: 6, left: null, right: null },
+      },
+      right: null,
+    };
+
+    if (constructFirstTree) {
+      expect(goodNodes(constructFirstTree)).toEqual(1);
+    }
+  });
+
   it('Range Sum of BST', () => {
     // CASE 1
     const input2: number[] = [18, 9, 27, 6, 15, 24, 30, 3, 0, 12, 0, 21];
@@ -170,6 +190,7 @@ describe('blah', () => {
       },
     };
 
+    console.log(bstFromPreorder([9, 0, 3, 6]));
     expect(bstFromPreorder(input)).toEqual(output);
   });
 

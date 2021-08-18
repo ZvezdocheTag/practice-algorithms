@@ -3,6 +3,46 @@ import { enAlphabetArr } from '../utils/enAlphabetArr';
 import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
 
+if (process.env.NODE_ENV !== 'production') {
+  console.log('foo');
+}
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+export const goodNodes = function(root: interfaces.TreeNode) {
+  let curretnGreater = 0;
+
+  if (root !== null) {
+    recursion(root, -Infinity);
+  }
+  function recursion(node: interfaces.TreeNode, maxPrev: number) {
+    if (node === null) {
+      return;
+    }
+    if (node.val >= maxPrev) {
+      curretnGreater += 1;
+    }
+
+    if (node.left) {
+      recursion(node.left, Math.max(maxPrev, node.val));
+    }
+    if (node.right) {
+      recursion(node.right, Math.max(maxPrev, node.val));
+    }
+  }
+
+  return curretnGreater;
+};
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -303,6 +343,7 @@ export function sumZero(n: number) {
   return [...res, -missed];
 }
 
+// TODO: Costruct Tree function works not correctly for this case should be allow to paste null
 export const bstFromPreorder = function(
   preorder: number[]
 ): interfaces.TreeNode | null {
