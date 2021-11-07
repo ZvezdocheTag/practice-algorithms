@@ -141,6 +141,7 @@ function mergeTrees(t1, t2) {
 
   return t1;
 }
+
 function constructBSTfromArray() {
   let arr = [1, 2, 3, 4, 5, 6, 6, 6, 6],
     n = arr.length,
@@ -151,6 +152,57 @@ function constructBSTfromArray() {
   console.log(mergeTrees(out, out), 'ME');
   //   console.log(out);
 }
-// console.log(object)
 
-constructBSTfromArray();
+function traverseLinkedList(l1, l2) {
+  let node = l1.head;
+  let node2 = l2.head;
+
+  while (node || node2) {
+    if (node && node2) {
+      if (node.value > node2.value) {
+      }
+    }
+    if (node) {
+      console.log(node.value);
+      node = node.next;
+    }
+    if (node2) {
+      console.log(node2.value);
+      node2 = node2.next;
+    }
+  }
+}
+
+const list = {
+  head: {
+    value: 1,
+    next: {
+      value: 2,
+      next: {
+        value: 4,
+        next: null,
+      },
+    },
+  },
+};
+const list1 = {
+  head: {
+    value: 1,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: {
+          value: 12,
+          next: {
+            value: 43,
+            next: null,
+          },
+        },
+      },
+    },
+  },
+};
+traverseLinkedList(list, list1);
+
+// constructBSTfromArray();
