@@ -3,9 +3,9 @@ import { enAlphabetArr } from '../utils/enAlphabetArr';
 import { MORSE_CODE } from './constatnts';
 import * as interfaces from './interfaces';
 
-if (process.env.NODE_ENV !== 'production') {
-  console.log('foo');
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   console.log('foo');
+// }
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
@@ -18,6 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @param {TreeNode} root
  * @return {number}
  */
+
 export const goodNodes = function(root: interfaces.TreeNode) {
   let curretnGreater = 0;
 
@@ -1214,9 +1215,9 @@ export const uniqueOccurrences = function(arr: Array<number>): boolean {
 };
 
 export const pairSum = (a: number, b: number) => {
-  if ('development' === process.env.NODE_ENV) {
-    console.log('boop');
-  }
+  // if ('development' === process.env.NODE_ENV) {
+  //   console.log('boop');
+  // }
   return a + b;
 };
 
